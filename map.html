@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>A-RIMS Africa Rapid Indicator Mapping System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    
+   
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 40px;/* 60px to make the container go all the way to the bottom of the topbar *//* 60px to make the container go all the way to the bottom of the topbar */
+      }
+     
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
+    
+    
+    <link href="css/map.css" rel="stylesheet" type="text/css" />
+    
+   
+
+
+</head>
+<body>
+    
+    <div id="mapContainer">
+        <div id="map"></div>
+        
+        <div id="infoPanel">
+            <a class="leftHandle toggleRight" rel="tooltip" title="Show/Hide panel" data-placement="left" ></a>
+            <div class="content">
+                <ul class="nav nav-tabs" id="infoPanelTabs">
+                    <li class="active"><a data-toggle="tab" href="#tabLocation">Location Report</a></li>
+                    <li class=""><a data-toggle="tab" href="#tabLegend">Legend</a></li>
+                </ul>
+                <div class="tab-content" id="myTabContent" style="height:100%;">
+                    <div id="tabLocation" class="tab-pane fade active in" style="height:100%;">
+                        <div id="locationReport" style="height:100%;">
+                            <p class="infoPrompt" style="font-size:1.2em;color:#AAAAAA;padding-left:10px;">
+                                Hover over a the river to get info about a river segment.
+                            </p>    
+                            <div id="histogram1" class="histogram">
+                                <div class="title"></div>
+                                <div class="chart"></div>
+                            </div> 
+                        </div>
+                        <div id="logoPanel">
+                        <!--
+                            <a href="http://water.worldbank.org/wpp" target="_blank" ><img src="img/wpplogo.gif" alt="Water Partnership Program" title="Water Partnership Program" /></a>
+                            <a href="http://water.worldbank.org/" target="_blank" ><img src="img/world-bank-logo_med.jpeg" alt="The World Bank" title="World Bank" /></a>
+                         -->
+                            <a href="http://asrc.cuny.edu/" target="_blank" ><img src="img/ASRC2.jpg" alt="CUNY Advanced Science Research Center" title="CUNY Advanced Science Research Center" /></a>
+                            <a href="http://www.cuny.edu" target="_blank" ><img src="img/cuny_square_RGB_blue.png" alt="CUNY - City University of New York" title="CUNY City University of New York" /></a>
+                            <a href="http://www.gc.cuny.edu " target="_blank" ><img src="img/CUNY-GC-logo_bluetextwhiteback.png" alt="The CUNY Graduate Center " title="The CUNY Graduate Center" /></a>
+                        </div>
+                    </div>
+                    <div id="tabLegend" class="tab-pane fade">
+                        <div id="legend">
+                          <div id="layerList" class="accordion">
+                            
+                          </div>     
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <!--<a class="brand" href="#" style="font-size:2.4em;font-family:Arial;font-weight:normal;color:#AAFF66;">A-RIMS</a>-->
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <!--<li class="active"><a href="#">Home</a></li>-->
+              <li><a class="aboutOpener" href="#aboutTab">About</a></li>
+              <li><a class="aboutOpener" href="#contactTab">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="titlebar">
+        <!--<span style="font-size:2.5em;font-weight:bold;line-height:1em;">A-RIMS</span>-->
+        <span class="title">A-RIMS</span>
+        <span class="subtitle">Africa Rapid Indicator Mapping System</span>
+    </div>
+   
+    
+    
+    <div class="modal hide fade" id="aboutModal" tabindex="-1" role="dialog" data-backdrop="true" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>A-RIMS</h3>
+            Africa Rapid Indicator Mapping System
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="aboutTabs">
+                <li><a id="aboutTab" data-toggle="tab" href="#aboutTabContent">About</a></li>
+                <li><a id="contactTab" data-toggle="tab" href="#contactTabContent">Contact</a></li>
+            </ul>
+            <div class="tab-content" id="aboutTabsContent" style="height:100%;">
+                <div id="aboutTabContent" class="tab-pane fade" data-html="about.html">
+                    
+                </div>
+                <div id="contactTabContent" class="tab-pane fade" data-html="contact.html">
+                    
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+    
+    
+    <!-- Templates -->
+    <script type="text/template" id="legenditem-template">
+        <div class="accordion-heading">
+            <label class="checkbox" style="float:left;margin:8px 60px 8px 15px;color:#DA8833;"><input class="toggle" type="checkbox" <%= visible ? 'checked="checked"' : '' %> /><%- label %></label>
+            <div style="float:right;margin-left:-60px;">
+                <a href="#collapseLayer<%- order %>" data-parent="#layerList" data-toggle="collapse" class="accordion-toggle collapsed" rel="tooltip" title="<div style=\'line-height:14px;\'>Show/Hide<br/>Legend</div>" data-placement="top" style="float:right;padding:8px 10px;">
+                    <i class="icon-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+        <div class="accordion-body collapse" id="collapseLayer<%- order %>" style="height: 0px;clear:both;"> 
+            <div class="accordion-inner"> 
+                <img src="<%- legendImage %>" /> 
+                <dl class="metadata">
+                    <dt class="muted">Metadata</dt>
+                    <dd><a href="<%- metadataUrl %>" target="_blank"><%- metadataUrl %></a></dd/>
+                </dl>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="maptooltip-template">
+        <span class="hover-label">Latitude</span><span class="hover-label">Longitude</span>
+        <br/><span class="hover-data"><%- lat %></span><span class="hover-data"><%- lng %></span>
+        <br/><span class="hover-instructions" style="">Click map for more...</span>
+    </script>
+    <script type="text/template" id="infoprompt-template">
+        Click on river segment <%- id %> to see whats upstream.
+    </script>
+    <script type="text/template" id="infopromptnull-template">
+        Hover over a the river to get info about a river segment.
+    </script>
+    <script type="text/template" id="histogram1title-template">
+        January Monthly Runoff at Current Irrigation Levels for Segment <%- id %>.
+    </script>
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/libs/json2.js" type="text/javascript"></script>
+    
+    <script src="js/libs/jquery.js"></script>
+
+    <script src="js/libs/underscore.js" type="text/javascript"></script>
+    <script src="js/libs/backbone.js" type="text/javascript"></script>
+    <script src="js/libs/backbone.localStorage.js" type="text/javascript"></script>
+    
+    <script src="js/libs/bootstrap.js"></script>
+    <!--<script src="../assets/js/bootstrap-transition.js"></script>
+    <script src="../assets/js/bootstrap-alert.js"></script>
+    <script src="../assets/js/bootstrap-modal.js"></script>
+    <script src="../assets/js/bootstrap-dropdown.js"></script>
+    <script src="../assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../assets/js/bootstrap-tab.js"></script>
+    <script src="../assets/js/bootstrap-tooltip.js"></script>
+    <script src="../assets/js/bootstrap-popover.js"></script>
+    <script src="../assets/js/bootstrap-button.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-carousel.js"></script>
+    <script src="../assets/js/bootstrap-typeahead.js"></script>-->
+
+
+    <script src="js/libs/jquery.loadmask.js" type="text/javascript"></script>
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js" type="text/javascript" ></script>
+    <script src="js/libs/wax.leaf.js" type="text/javascript"></script>
+    <script src="js/libs/cartodb-leaflet.js" type="text/javascript"></script>
+    <script src="js/libs/cartodb-leaflet-withzindex.js" type="text/javascript"></script>
+    
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/libs/excanvas.min.js"></script><![endif]-->
+    <script src="js/libs/jquery.flot.js" language="javascript" type="text/javascript" ></script>
+    
+
+    <!--MODELS-->
+    <script src="js/model/Layer.js" type="text/javascript"></script>
+    <script src="js/model/LayerList.js" type="text/javascript"></script>
+    <script src="js/model/MapLayer.js" type="text/javascript"></script>
+    <script src="js/model/MapLayerHover.js" type="text/javascript"></script>
+    <script src="js/model/RiverSegment.js" type="text/javascript"></script>
+    <script src="js/model/RiverSegmentList.js" type="text/javascript"></script>
+
+    <!--SERVICE-->
+    <script src="js/model/EcriService.js" type="text/javascript"></script>
+    
+    <!--VIEW-->
+    <script src="js/view/AboutWindowView.js" type="text/javascript"></script>
+    <script src="js/view/NavBarView.js" type="text/javascript"></script>
+    
+    <script src="js/view/InfoPanelView.js" type="text/javascript"></script>
+    <script src="js/view/LegendItemView.js" type="text/javascript"></script>
+    <script src="js/view/LegendView.js" type="text/javascript"></script>
+    <script src="js/view/LocationReportView.js" type="text/javascript"></script>
+    <script src="js/view/HistogramView.js" type="text/javascript"></script>
+    <script src="js/view/MapLayerUpstreamSegmentsView.js" type="text/javascript"></script>
+    <script src="js/view/MapLayerSubBasinPolyView.js" type="text/javascript"></script>
+    <script src="js/view/MapLayerHoverView.js" type="text/javascript"></script>
+    <script src="js/view/MapLayerView.js" type="text/javascript"></script>
+    <script src="js/view/MapTooltipView.js" type="text/javascript"></script>
+    <script src="js/view/MapStatusControl.js" type="text/javascript"></script>
+    <script src="js/view/MapView.js" type="text/javascript"></script>
+    
+    
+    <script src="js/MapPage.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            CUR.MapPage.init(); 
+        })
+    </script>
+    
+    
+
+  
+  </body>
+</html>

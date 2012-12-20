@@ -1,0 +1,412 @@
+﻿body 
+{
+	font-family:Arial;
+	overflow:hidden;
+	height:1px;
+}
+#infoPanel a 
+{
+    color: #DA8833;
+}
+#infoPanel a:hover
+{
+    color: #BA6813;
+}
+#infoPanel .nav-tabs > .active > a, #infoPanel .nav-tabs > .active > a:hover {
+    color: #9A4800;
+}
+/*
+.navbar-inner .container
+{
+	margin-left:15px;
+	
+}
+*/
+/***** BOOTSTRAP OVERRIDES *************/
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0.5; 
+}
+
+.collapse {
+	overflow: hidden !important;/*FIXES IE COLLAPSE BUG*/
+}
+
+.accordion-inner {
+    border-top: 0 solid #E5E5E5;
+    padding: 9px 15px;
+}
+.accordion-heading .accordion-toggle:hover
+{
+	background:#F0F0F0;
+}
+
+.navbar-inverse .navbar-inner {
+    background-color: #2F2523;/*#3F3533;*/
+	/*background-image: linear-gradient(to bottom,#2F2523, #2F2523);*/
+}
+
+.nav-tabs > li > a, .nav-tabs >li > a:hover {
+    color: #DA8833;
+}
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+    color: #9A4800;
+}
+
+/**************************************/
+
+
+/***** LEAFLET OVERRIDES **************/
+.leaflet-control-layers input
+{
+	/*vertical-align:top;*/
+	margin-top: 2px;
+    position: relative;
+    top: -2px;
+}
+.leaflet-control-layers a {
+    background-image: url("../img/layers.png");
+}
+.leaflet-control-layers form
+{
+	margin: 0;
+}
+.leaflet-control-layers label
+{
+	font-size:100%;
+	color:#997755;
+	font-weight:bold;
+}
+/**************************************/
+
+
+
+
+.titlebar
+{
+	
+	color:#005522;
+  	/*background:#FFCC33;*/
+  	/*background:#FFE38F;*/
+
+  	background:#333333 url(../img/Bani_river_crop3.jpg) 0px 0px no-repeat;
+  	background-size: 100% 70px;
+  	padding:15px 0px 15px 20px;
+  	box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 1px 7px rgba(0, 0, 0, 0.6);
+	
+	font-family:Courier New;
+	height:20px;
+	overflow:hidden;
+}
+
+.titlebar .title
+{
+	display:block;
+	float:left;
+	font-size:2.8em;
+	font-weight:bold;
+	color:#FFFFFF;
+	
+}
+
+.titlebar .subtitle
+{
+	display:block;
+	margin-left:155px;
+	font-size:1.2em;
+	color:#FFFFFF;
+}
+#mapContainer
+{
+	z-index:-1;
+	position:absolute;
+	top:90px;
+	bottom:0;
+	left:0;
+	right:0;
+}
+
+#map
+{
+	/*
+	z-index:-1;
+	position:absolute;
+	top:80px;
+	bottom:0;
+	left:0;
+	right:0;
+*/
+	position:absolute;
+	top:0px;
+	bottom:0;
+	left:0;
+	right:352px;
+	z-index:1;
+}
+
+.mapStatusControl
+{
+	border:solid 3px #555555;
+	display:none;
+	/*
+	
+	position:absolute;
+	top:104px;
+	left:70px;
+    */
+	background:#000000 url('../img/ajax-loader-map.gif') no-repeat 8px center;
+	color:#FFAA33;
+	padding:5px 5px 4px 30px;
+	border-radius:10px;
+	opacity:0.8;
+	font-size:13px;
+}
+
+#infoPanel
+{
+	position:absolute;
+	right:0px;
+	bottom:0px;
+	top:0px;
+	width:350px;
+	border-left:solid 2px #CCCCCC;
+	overflow:visible;
+	z-index:2;
+}
+#infoPanel .leftHandle
+{
+	background:#FFFFFF;
+	position:absolute;
+	left:-32px;
+	width:30px;
+	height:60px;
+	border:solid 1px #CCCCCC;
+	border-width: 2px 0 2px 2px;
+	bottom:50%;
+	margin-bottom:-30px;
+	border-radius:10px 0 0 10px;
+	cursor:pointer;
+	
+}
+#infoPanel .leftHandle:hover
+{
+	background-color:#EEEEEE;
+	border-color:#AAAAAA;	
+}
+#infoPanel .leftHandle.toggleLeft
+{
+	background:#FFFFFF url(../img/toggleleft.png)50% 50% no-repeat;
+}
+#infoPanel .leftHandle.toggleRight
+{
+	background:#FFFFFF url(../img/toggleright.png)50% 50% no-repeat;
+}
+#infoPanel .content
+{
+	padding:5px;
+	background:#FFFFFF;
+	height:100%;
+}
+
+#logoPanel 
+{
+	position:absolute;
+	bottom:5px;
+	border-top:1px solid #EEEEEE;
+	padding-top:10px;
+}
+
+.metadata
+{
+	font-size:85%;
+	margin:20px 0px 0px 10px;
+}
+.metadata dd
+{
+	line-height:normal;
+}
+#infoPanel .metadata a
+{
+	color:#0088CC;
+}
+
+.histogram
+{
+	
+	
+}
+.histogram .title
+{
+	width:225px;
+	text-align:center;
+	padding-left:25px;
+	margin:0 auto;
+	line-height:normal;
+	color:#606060;
+	font-size:80%;
+	font-weight:bold;
+
+}
+.histogram .chart
+{
+	width:250px;
+	height:200px;
+	margin:0 auto;
+}
+
+#aboutModal .modal-header
+{
+	color:#CC9966;
+}
+/*
+.metadataOpener .icon-info-sign
+{
+	
+}
+.metadataOpener:hover
+{
+	background:#EEEEEE;
+}
+*/
+
+@media (max-width: 979px) {
+  .titlebar
+  {
+  	margin-top:-20px;
+  
+  }
+  #mapContainer
+  {
+  	top:100px;
+  }
+  /*
+  .navbar-inner .container
+	{
+		margin-left:5px;
+		
+	}
+*/
+}
+@media (max-width: 767px) 
+{
+
+	
+  .titlebar
+  {
+  	margin-top:-20px;
+  	margin-left:-20px;
+  	margin-right:-20px;
+  }
+ .subtitle
+  {
+  	line-height:0.9em;
+  	margin-top:-7px;
+  	max-width:250px;
+  }
+  /*
+  #infoPanel
+  {
+  	width:280px;
+  }
+  #map
+  {
+  	right:282px;
+  }
+  */
+  #mapContainer
+  {
+  	top:100px;
+  }
+  
+}
+
+@media (max-width: 480px) 
+{
+ 
+	
+}
+
+div.wax-tooltip
+{ 
+	z-index:6!important;
+	font-size:11px;
+	/*font-family:Verdana;*/
+	background-color:#fff9f3;
+	color:#222222;
+	padding:5px 2px 5px 5px;
+	position:absolute; 
+	border-style:solid;
+	border-color:#555555;
+	border-width:1px;
+	/*max-width:115px;*/
+	line-height:12px;
+	border-radius:8px 8px 8px 8px;
+	position:absolute;
+	display:none;
+}
+div.wax-tooltip .hover-label
+{
+	display:inline-block;
+	margin-top:2px;
+	color:#888888;
+	width:50px;
+	font-size:10px;
+
+}
+div.wax-tooltip .hover-data
+{
+	color:#333333;
+	font-weight:normal;
+	display:inline-block;
+	width:50px;
+}
+div.wax-tooltip .hover-instructions
+{
+	color:#DDAA33;
+	display:inline-block;
+	margin-top:4px;
+}
+
+/***********LOAD MASK****************/
+.loadmask {
+    z-index: 100;
+    position: absolute;
+    top:0;
+    left:0;
+    -moz-opacity: 0.5;
+    opacity: .50;
+    filter: alpha(opacity=50);
+    background-color: #CCC;
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+}
+.loadmask-msg {
+    z-index: 20001;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border:3px solid #999999;
+    background: transparent;
+    padding:0px;
+    border-radius:9px;
+}
+.loadmask-msg div {
+    padding:5px 10px 5px 25px;
+    background: #000000 url('../img/ajax-loader-map.gif') no-repeat 5px 5px;
+    line-height: 16px;
+	border:0px solid #FF9900;
+    color:#FFAA33;
+    font:normal 16px;
+    cursor:wait;
+    border-radius:6px;
+    opacity:0.8;
+}
+.masked {
+    overflow: hidden !important;
+}
+.masked-relative {
+    position: relative !important;
+}
+.masked-hidden {
+    visibility: hidden !important;
+}
