@@ -11,9 +11,16 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
     
     highlightedSegment: null,
     
-    subBasinStrahlerOrder: 1,
-    upstreamSegmentStrahlerOrder: 2,
+    //subBasinStrahlerOrder: 1,
+    subBasinStrahlerOrder: 3,
+    //upstreamSegmentStrahlerOrder: 2,
+    upstreamSegmentStrahlerOrder: 4,
     
+    upstreamHistogramStrahlerOrder: 2,
+
+    hist1Field: 'Runoff-01',
+
+    hist2Field: 'RamCropland2000Km2',
     
     //selectedSegment: null,
     
@@ -45,7 +52,9 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
         
         
         this.getHistogramData(segment);
-        //this.getUpstreamSubBasin(segment);
+
+        this.getHistogram2Data(segment);
+
         this.getUpstreamSegments(segment);
         
         
@@ -73,11 +82,25 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
     getHistogramData: function(segment){
         this.trigger('querySent:histogram', segment);
         var that = this;
-        this.ecriService.getHistogramData(segment.id, this.upstreamSegmentStrahlerOrder,
+        this.ecriService.getHistogramData(segment.id, 
+            this.upstreamHistogramStrahlerOrder,
+            this.hist1Field,
             function(resp){
                 segment.set({histogram: resp});
                 that.trigger('queryReceived:histogram', segment, resp);
-            
+            }
+        );
+    },
+    
+    getHistogram2Data: function(segment){
+        this.trigger('querySent:histogram2', segment);
+        var that = this;
+        this.ecriService.getHistogramData(segment.id, 
+            this.upstreamHistogramStrahlerOrder,
+            this.hist2Field,
+            function(resp){
+                segment.set({histogram2: resp});
+                that.trigger('queryReceived:histogram2', segment, resp);
             }
         );
     },

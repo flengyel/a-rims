@@ -14,7 +14,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
       body {
-	cursor:url(http:PrecisionCursor.cur),crosshair;
+        cursor:url(http:PrecisionCursor),crosshair;
         padding-top: 40px;/* 60px to make the container go all the way to the bottom of the topbar *//* 60px to make the container go all the way to the bottom of the topbar */
       }
      
@@ -51,18 +51,18 @@
                     <div id="tabLocation" class="tab-pane fade active in" style="height:100%;">
                         <div id="locationReport" style="height:100%;">
                             <p class="infoPrompt" style="font-size:1.2em;color:#AAAAAA;padding-left:10px;">
-                                Hover over a the river to get info about a river segment.
+                                Hover over the river for data upstream of segment.
                             </p>    
                             <div id="histogram1" class="histogram">
                                 <div class="title"></div>
                                 <div class="chart"></div>
                             </div> 
+                            <div id="histogram2" class="histogram">
+                                <div class="title"></div>
+                                <div class="chart"></div>
+                            </div> 
                         </div>
                         <div id="logoPanel">
-                        <!--
-                            <a href="http://water.worldbank.org/wpp" target="_blank" ><img src="img/wpplogo.gif" alt="Water Partnership Program" title="Water Partnership Program" /></a>
-                            <a href="http://water.worldbank.org/" target="_blank" ><img src="img/world-bank-logo_med.jpeg" alt="The World Bank" title="World Bank" /></a>
-                         -->
                             <a href="http://asrc.cuny.edu/" target="_blank" ><img src="img/ASRC2.jpg" alt="CUNY Advanced Science Research Center" title="CUNY Advanced Science Research Center" /></a>
                             <a href="http://www.cuny.edu" target="_blank" ><img src="img/cuny_square_RGB_blue.png" alt="CUNY - City University of New York" title="CUNY City University of New York" /></a>
                             <a href="http://www.gc.cuny.edu " target="_blank" ><img src="img/CUNY-GC-logo_bluetextwhiteback.png" alt="The CUNY Graduate Center " title="The CUNY Graduate Center" /></a>
@@ -161,13 +161,16 @@
         <br/><span class="hover-instructions" style="">Click map for more...</span>
     </script>
     <script type="text/template" id="infoprompt-template">
-        Click on river segment <%- id %> to see whats upstream.
+        Click on river segment <%- id %> for data upstream.
     </script>
     <script type="text/template" id="infopromptnull-template">
-        Hover over a the river to get info about a river segment.
+        Hover over the river for data upstream of segment.
     </script>
     <script type="text/template" id="histogram1title-template">
-        January Monthly Runoff at Current Irrigation Levels for Segment <%- id %>.
+        January Runoff [mm/month] at Current Irrigation Levels for Segment <%- id %>.
+    </script>
+    <script type="text/template" id="histogram2title-template">
+        Cropland Area [km<sup>2</sup>] Upstream of Segment <%- id %>.
     </script>
 
 

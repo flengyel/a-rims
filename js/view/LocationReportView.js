@@ -10,6 +10,7 @@ CUR.LocationReportView = Backbone.View.extend({
     infoPromptNullTemplate: _.template($('#infopromptnull-template').html()),
     
     histogram: null,
+    histogram2: null,
     
     
     initialize:function () {
@@ -18,6 +19,9 @@ CUR.LocationReportView = Backbone.View.extend({
         this.collection.on('change:highlighted', this.segmentHighlighted, this);
         this.collection.on('querySent:histogram', this.segmentQuerySent, this);
         this.collection.on('queryReceived:histogram', this.segmentQueryReceived, this);
+        // additional conditions
+        this.collection.on('querySent:histogram2', this.segmentQuerySent, this);
+        this.collection.on('queryReceived:histogram2', this.segmentQueryReceived, this);
         
     
         //this.$el.mask('loading...');
@@ -59,6 +63,16 @@ CUR.LocationReportView = Backbone.View.extend({
             });
         }
         this.histogram.render(segment.get('histogram'));
+        
+        if(!this.histogram2){
+            this.histogram2 = new CUR.HistogramView({
+                el:'#histogram2', 
+                titleTemplate: _.template( 
+                    $('#histogram2title-template').html() 
+                ) 
+            });
+        }
+        this.histogram2.render(segment.get('histogram2'));
         
         //this.updateChart(segment.get('histogram'));
         

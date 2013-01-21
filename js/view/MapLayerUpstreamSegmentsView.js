@@ -5,16 +5,20 @@ CUR = window.CUR || {};
 CUR.MapLayerUpstreamSegmentsView = Backbone.View.extend({
 
     UPSTREAM_SEGMENTS_STYLE: { 
-        color: '#0055AA',
+        // color: '#0055AA',
+        color: '#Fe0000',
+        // color: '#000000',
         opacity: 0.9, 
         clickable: false,
-        weight: 3
+        weight: 2
     },
     UPSTREAM_SEGMENTS_STYLE_ORDER_1: { 
-        color: '#EE3333',
+        //color: '#EE3333',
+        color: '#Fe0000',
+        // color: '#000000',
         opacity: 0.4, 
         clickable: false,
-        weight: 2
+        weight: 1
     },
     map:null,
     prevMultis: [],
