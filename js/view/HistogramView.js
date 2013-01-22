@@ -22,12 +22,13 @@ CUR.HistogramView = Backbone.View.extend({
             var x = item.datapoint[0].toFixed(10),
                 y = item.datapoint[1].toFixed(10);
             
-            return 'X: ' + x + '<br/>Y: ' + y;
+            return 'value: ' + x + '<br/>proportion: ' + y;
         };
         
         var showTooltip = function(x, y, contents) {
             $('<div id="histoTooltip" class="tooltip top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + contents + '</div></div>').css( {
                 position: 'absolute',
+                //position: 'relative',
                 display: 'none',
                 top: y - 55,
                 left: x - 46,
@@ -82,7 +83,8 @@ CUR.HistogramView = Backbone.View.extend({
         //var _chart = this.$('.chart');
         var d1 = [];
         for(var i=0, len=data.proportions.length; i<len; i++){
-            d1.push({data: [[data.endpoints[i], data.proportions[i]]], highlightColor:'#00FF00'  });
+            //d1.push({data: [[data.endpoints[i], data.proportions[i]]], highlightColor:'#00FF00'  });
+            d1.push({data: [[data.midpoints[i], data.proportions[i]]], highlightColor:'#00FF00'  });
         }
         var width = data.endpoints[1] - data.endpoints[0];
         

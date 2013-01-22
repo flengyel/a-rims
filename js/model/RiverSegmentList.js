@@ -21,6 +21,8 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
     hist1Field: 'Runoff-01',
 
     hist2Field: 'RamCropland2000Km2',
+
+    hist3Field: 'GRUMP_Pop_2000',
     
     //selectedSegment: null,
     
@@ -50,10 +52,14 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
         this.add(segment);
         this.selectedSegment = segment;
         
-        
+
         this.getHistogramData(segment);
 
         this.getHistogram2Data(segment);
+
+	// population data suggests trouble with histogram display code
+        // the messages received are fine
+        this.getHistogram3Data(segment);
 
         this.getUpstreamSegments(segment);
         
@@ -101,6 +107,19 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
             function(resp){
                 segment.set({histogram2: resp});
                 that.trigger('queryReceived:histogram2', segment, resp);
+            }
+        );
+    },
+    
+    getHistogram3Data: function(segment){
+        this.trigger('querySent:histogram3', segment);
+        var that = this;
+        this.ecriService.getHistogramData(segment.id, 
+            this.upstreamHistogramStrahlerOrder,
+            this.hist3Field,
+            function(resp){
+                segment.set({histogram3: resp});
+                that.trigger('queryReceived:histogram3', segment, resp);
             }
         );
     },

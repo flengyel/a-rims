@@ -11,6 +11,7 @@ CUR.LocationReportView = Backbone.View.extend({
     
     histogram: null,
     histogram2: null,
+    histogram3: null,
     
     
     initialize:function () {
@@ -22,6 +23,8 @@ CUR.LocationReportView = Backbone.View.extend({
         // additional conditions
         this.collection.on('querySent:histogram2', this.segmentQuerySent, this);
         this.collection.on('queryReceived:histogram2', this.segmentQueryReceived, this);
+        this.collection.on('querySent:histogram3', this.segmentQuerySent, this);
+        this.collection.on('queryReceived:histogram3', this.segmentQueryReceived, this);
         
     
         //this.$el.mask('loading...');
@@ -35,6 +38,12 @@ CUR.LocationReportView = Backbone.View.extend({
     refreshHistogram: function(){
         if(this.histogram){
             this.histogram.refresh();
+        }
+        if(this.histogram2){
+            this.histogram2.refresh();
+        }
+        if(this.histogram3){
+            this.histogram3.refresh();
         }
         
     },
@@ -73,6 +82,16 @@ CUR.LocationReportView = Backbone.View.extend({
             });
         }
         this.histogram2.render(segment.get('histogram2'));
+        
+        if(!this.histogram3){
+            this.histogram3 = new CUR.HistogramView({
+                el:'#histogram3', 
+                titleTemplate: _.template( 
+                    $('#histogram3title-template').html() 
+                ) 
+            });
+        }
+        this.histogram3.render(segment.get('histogram3'));
         
         //this.updateChart(segment.get('histogram'));
         
