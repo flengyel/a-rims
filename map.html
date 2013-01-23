@@ -50,7 +50,7 @@
                     <div id="tabLocation" class="tab-pane fade active in"> <!--style="height:100%;"-->
                         <div id="locationReport">
                             <p class="infoPrompt" style="font-size:1.2em;color:#AAAAAA;padding-left:10px;"> 
-                              Hover over the river for Lat/Lon coordinates of segment.
+                              Hover over the river for Lat/Lon coordinates of cell.
                             </p>    
                                 <div id="histogram1" class="histogram">
                                   <div class="title"></div>
@@ -61,6 +61,10 @@
                                   <div class="chart"></div>
                                 </div> 
                                 <div id="histogram3" class="histogram">
+                                  <div class="title"></div>
+                                  <div class="chart"></div>
+                                </div> 
+                                <div id="histogram4" class="histogram">
                                   <div class="title"></div>
                                   <div class="chart"></div>
                                 </div> 
@@ -163,22 +167,26 @@
         <br/><span class="hover-instructions" style="">Click map for more...</span>
     </script>
     <script type="text/template" id="infoprompt-template">
-        Click on river segment <%- id %> for frequency histograms.
+        Click on river cell <%- id %> for frequency histograms.
     </script>
     <script type="text/template" id="infopromptnull-template">
-        Hover over the river for Lat/Lon coordinates of segment.
+        Hover over the river for Lat/Lon coordinates of cell.
     </script>
     <script type="text/template" id="histogram1title-template">
-        Frequency histogram over 1min grid squares upstream of segment <%- id %> of January 
-        runoff [mm/month] at year 2000 irrigation levels.
+        Frequency histogram of January runoff [mm/month] at year 2000 irrigation levels
+        upstream of cell <%- id %> (1min resolution).
     </script>
     <script type="text/template" id="histogram2title-template">
-        Frequency histogram over 1min grid squares upstream of segment <%- id %> of 
-        year 2000 cropland area [km<sup>2</sup>].
+        Frequency histogram of January runoff [mm/month] at 25% over year 2000 irrigation levels
+        upstream of cell <%- id %> (1min resolution).
     </script>
     <script type="text/template" id="histogram3title-template">
-        Frequency histogram over 1min grid squares upstream of segment <%- id %> of 
-        year 2000 population density [10<sup>3</sup> km<sup>-2</sup>].
+        Frequency histogram of January runoff [mm/month] at 50% over year 2000 irrigation levels
+        upstream of cell <%- id %> (1min resolution).
+    </script>
+    <script type="text/template" id="histogram4title-template">
+        Frequency histogram of July runoff [mm/month] at year 2000 irrigation levels
+        upstream of cell <%- id %> (1min resolution).
     </script>
 
 

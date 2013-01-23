@@ -12,19 +12,26 @@ CUR.LocationReportView = Backbone.View.extend({
     histogram: null,
     histogram2: null,
     histogram3: null,
+    histogram4: null,
     
     
     initialize:function () {
         //this.histogram1 = $('#histogram1');
     
         this.collection.on('change:highlighted', this.segmentHighlighted, this);
+
         this.collection.on('querySent:histogram', this.segmentQuerySent, this);
         this.collection.on('queryReceived:histogram', this.segmentQueryReceived, this);
         // additional conditions
         this.collection.on('querySent:histogram2', this.segmentQuerySent, this);
         this.collection.on('queryReceived:histogram2', this.segmentQueryReceived, this);
+
         this.collection.on('querySent:histogram3', this.segmentQuerySent, this);
         this.collection.on('queryReceived:histogram3', this.segmentQueryReceived, this);
+        
+        // july runoff
+        this.collection.on('querySent:histogram4', this.segmentQuerySent, this);
+        this.collection.on('queryReceived:histogram4', this.segmentQueryReceived, this);
         
     
         //this.$el.mask('loading...');
@@ -45,6 +52,10 @@ CUR.LocationReportView = Backbone.View.extend({
         if(this.histogram3){
             this.histogram3.refresh();
         }
+        if(this.histogram4){
+            this.histogram4.refresh();
+        }
+        
         
     },
     segmentHighlighted: function(segment){
@@ -92,6 +103,17 @@ CUR.LocationReportView = Backbone.View.extend({
             });
         }
         this.histogram3.render(segment.get('histogram3'));
+        
+        // not as parametrized as it should be!!
+        if(!this.histogram4){
+            this.histogram4 = new CUR.HistogramView({
+                el:'#histogram4', 
+                titleTemplate: _.template( 
+                    $('#histogram4title-template').html() 
+                ) 
+            });
+        }
+        this.histogram4.render(segment.get('histogram4'));
         
         //this.updateChart(segment.get('histogram'));
         
