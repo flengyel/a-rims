@@ -1,8 +1,9 @@
 ﻿body 
 {
 	font-family:Arial;
-	overflow:hidden;
-	height:1px;
+	overflow:hidden; 
+	height:1px; 
+	/* height:100%; */
 }
 #infoPanel a 
 {
@@ -30,6 +31,21 @@
 .collapse {
 	overflow: hidden !important;/*FIXES IE COLLAPSE BUG*/
 }
+
+.scrollable {
+  height: 100%;
+  overflow: auto;
+}
+
+.max-height {
+  height: 100%;
+}
+
+.pad150-bot {
+  padding-bottom: 150px;
+}    
+
+
 
 .accordion-inner {
     border-top: 0 solid #E5E5E5;
@@ -169,7 +185,7 @@
 	top:0px;
 	width:350px;
 	border-left:solid 2px #CCCCCC;
-	overflow:visible;
+	overflow:visible; 
 	z-index:2;
 }
 #infoPanel .leftHandle
@@ -209,7 +225,7 @@
 
 #logoPanel 
 {
-	position:absolute;
+	position:absolute; 
 	bottom:5px;
 	border-top:1px solid #EEEEEE;
 	padding-top:10px;
@@ -236,7 +252,8 @@
 }
 .histogram .title
 {
-	width:225px;
+	/* width:225px; */
+	width:230px;
 	text-align:center;
 	padding-left:25px;
 	margin:0 auto;
@@ -251,6 +268,7 @@
 	width:250px;
 	height:200px;
 	margin:0 auto;
+        padding-bottom:25px;
 }
 
 #aboutModal .modal-header
