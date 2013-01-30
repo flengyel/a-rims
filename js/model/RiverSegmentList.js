@@ -18,11 +18,11 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
     
     upstreamHistogramStrahlerOrder: 2,
 
-    hist1Field: 'Runoff-01',
+    hist1Field: 'Runoff_Annual_2000',
 
-    hist2Field: 'Runoff25-01',
+    hist2Field: 'Runoff25_Annual_2000',
 
-    hist3Field: 'Runoff50-01',
+    hist3Field: 'Runoff50_Annual_2000',
 
     hist4Field: 'Runoff-07',
 
