@@ -1,0 +1,172 @@
+#africa_mask {
+   polygon-fill:#E8E8E8;
+     polygon-opacity: 0.3;
+   polygon-clip:false;
+ }
+
+***************************************************
+
+   #crop_africa {
+   polygon-opacity: .8;
+     line-opacity:0;
+     [grid_code >0] {
+       polygon-fill:rgb(33,130,145);
+     line-clip:false;
+     polygon-clip:false;
+   }
+     [grid_code > 750] {
+     polygon-fill:rgb(91,181,174);
+     polygon-clip:false;
+   }
+    [grid_code > 1250] {
+     polygon-fill:rgb(199,235,229);
+     polygon-clip:false;
+   }
+    [grid_code > 2500] {
+     polygon-fill:rgb(255,255,191);
+     polygon-clip:false;
+   }
+    [grid_code > 4000] {
+     polygon-fill:rgb(245,231,193);
+     polygon-clip:false;
+   }
+    [grid_code > 5000] {
+     polygon-fill:rgb(217,180,102);
+     polygon-clip:false;
+   }
+    [grid_code > 6500] {
+     polygon-fill:rgb(156,85,31);
+     polygon-clip:false;
+   }
+}
+
+***************************************************
+
+#nigerriverorderlt5 {
+   line-color:rgb(104,133,168);
+     line-opacity: 0.9;
+     [zoom <6]{
+       line-opacity:0;
+     line-clip:false;
+   }
+    [zoom>=6]{
+     [order_=4]     {
+         line-width:0.75;
+       line-clip:false;
+     }
+       [order_<4]     {
+       line-width:0;
+       line-clip:false;
+     }
+  }
+    [zoom>=9]{
+     [order_=4]     {
+         line-width:0.75;
+       line-clip:false;
+     }
+    [order_=3]     {
+       line-width:0.5;
+       line-clip:false;
+     }
+    [order_<=2]     {
+       line-width:0.25;
+       line-clip:false;
+     }
+  }
+}
+
+***************************************************
+
+#niger_river_network {
+   line-color:rgb(0,77,168);
+     line-opacity: 0.9;
+     [order_=5]     {
+       line-width:0.5;
+     line-clip:false;
+   }
+  [order_=6]     {
+     line-width:1;
+     line-clip:false;
+   }
+  [order_=7]     {
+     line-width:2;
+     line-clip:false;
+   }
+  [order_=8]     {
+     line-width:4;
+     line-clip:false;
+   }
+  [order_>=9]     {
+     line-width:5;
+     line-clip:false;
+   }
+}
+ 
+
+***************************************************
+
+ #nigerbasin15sec::outline {
+   line-color: #fff;
+     line-width: 6;
+   line-clip:false;
+ }
+#nigerbasin15sec {
+   line-width:2;
+     line-color: #434343;
+   line-clip:false;
+ }
+
+***************************************************
+
+#nigerurbanareas15sec {
+   polygon-fill:#FF6600;
+     polygon-opacity: 0.3;
+     line-opacity:1;
+     line-color: #600000;
+     line-width: 1;
+   line-clip:false;
+   polygon-clip:false;
+ }
+
+
+***************************************************
+
+#glwd_polygon_africa {
+   polygon-opacity: 0.8;
+     [gridcode=1]    {
+       polygon-fill:rgb(41, 32, 146);
+     polygon-clip:false;
+   }
+    [gridcode=2]    {
+     polygon-fill:rgb(217, 2, 1);
+     polygon-clip:false;
+   }
+    [gridcode=3]    {
+     polygon-fill:rgb(186, 17, 253);
+     polygon-clip:false;
+   }
+    [gridcode=4]    {
+     polygon-fill:rgb(14, 130, 252);
+     polygon-clip:false;
+   }
+    [gridcode=5]    {
+     polygon-fill:rgb(184, 164, 16);
+     polygon-clip:false;
+   }
+    [gridcode=6]    {
+     polygon-fill:rgb(253, 171, 17);
+     polygon-clip:false;
+   }
+    [gridcode=7]    {
+     polygon-fill:rgb(253, 254, 31);
+     polygon-clip:false;
+   }
+    [gridcode=8]    {
+     polygon-fill:rgb(150, 69, 72);
+     polygon-clip:false;
+   }
+    [gridcode=9]    {
+     polygon-fill:rgb(163, 248, 252);
+     polygon-clip:false;
+   }
+}
