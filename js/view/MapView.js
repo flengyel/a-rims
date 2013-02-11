@@ -6,6 +6,7 @@ CUR.MapView = Backbone.View.extend({
     el: $('#map'),
     
     clickMarker: null,
+    myMarkerIcon: null,  // change default icon
     subBasinPolyView: null,
     upstreamSegmentsView:null,
     //statusEl: null,
@@ -31,6 +32,8 @@ CUR.MapView = Backbone.View.extend({
         this.initializeBaseLayers();
         this.initializeMapLayers();
         this.initializeMapTooltip();
+
+        this.initDefcon(); // change the default Leaflet marker
         
         //this.statusEl = $('#mapStatus');
 
@@ -100,7 +103,14 @@ CUR.MapView = Backbone.View.extend({
         return this;
     },
     
-
+    initDefcon: function(){
+      var myIcon = new L.Icon({
+            iconUrl:'img/BlackPieCircle.png',
+            iconSize:[40, 40],
+            //,iconAnchor: [20, 20]
+          });
+      this.myMarkerIcon = myIcon;
+    },
     
     renderLayer: function (item, map) {
         var mapLayers = item.get('mapLayers');
@@ -187,8 +197,9 @@ CUR.MapView = Backbone.View.extend({
     },
     
     setClickMarkerLatLng: function(latlng){
-        if(!this.clickMarker){
-            this.clickMarker = L.marker( latlng ).addTo(this.map);
+        if(!this.clickMarker){ 
+          // default marker icon changed here
+          this.clickMarker = L.marker( latlng, {icon: this.myMarkerIcon}  ).addTo(this.map);
         } else {
             this.clickMarker.setLatLng(latlng);
         }

@@ -6,16 +6,16 @@ CUR.MapLayerUpstreamSegmentsView = Backbone.View.extend({
 
     UPSTREAM_SEGMENTS_STYLE: { 
         // color: '#0055AA',
-        color: '#Fe0000',
-        // color: '#000000',
+        // color: '#Fe0000',
+        color: '#000000', // BA12FD matches GLWD legend
         opacity: 0.9, 
         clickable: false,
         weight: 2
     },
     UPSTREAM_SEGMENTS_STYLE_ORDER_1: { 
         //color: '#EE3333',
-        color: '#Fe0000',
-        // color: '#000000',
+        // color: '#Fe0000',
+        color: '#000000', 
         opacity: 0.4, 
         clickable: false,
         weight: 1

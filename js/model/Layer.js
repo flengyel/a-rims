@@ -21,7 +21,7 @@ CUR.Layer = Backbone.Model.extend({
 //        
 //            mapLayers.push({
 //                ui_layer_name: options.name,
-//                user_name:'cunycur',
+//                user_name:'asrc',
 //                table_name: options.mapLayersConfig[i].table,
 //                interactivity: ( options.mapLayersConfig[i].interactivity  ? options.mapLayersConfig[i].interactivity : null),
 //                //query: "SELECT * FROM {{table_name}}",
@@ -37,7 +37,7 @@ CUR.Layer = Backbone.Model.extend({
             if(options.tables[i].interactivity && options.tables[i].interactivity.length > 0){
                 mapLayers.push(
                     new CUR.MapLayerHover({
-                        user_name:'cunycur',
+                        user_name:'asrc',
                         table_name: options.tables[i].name,
                         interactivity: options.tables[i].interactivity,
                         //query: "SELECT * FROM {{table_name}}",
@@ -48,7 +48,7 @@ CUR.Layer = Backbone.Model.extend({
             } else {
                 mapLayers.push(
                     new CUR.MapLayer({
-                        user_name:'cunycur',
+                        user_name:'asrc',
                         table_name: options.tables[i].name,
                         //interactivity: ( options.mapLayersConfig[i].interactivity  ? options.mapLayersConfig[i].interactivity : null),
                         query: "SELECT * FROM {{table_name}}",
@@ -87,7 +87,7 @@ CUR.Layer = Backbone.Model.extend({
 //                for(var i=0, len=mapLayersConfig.length; i<len; i++){
 //                    var layer =new L.CartoDBLayerWithZIndex({
 //                        map: map,
-//                        user_name:'cunycur',
+//                        user_name:'asrc',
 //                        table_name: mapLayersConfig[i].table,
 //                        query: "SELECT * FROM {{table_name}}",
 //                        opacity: this.get('opacity'),
