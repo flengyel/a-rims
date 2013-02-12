@@ -84,7 +84,8 @@ CUR.HistogramView = Backbone.View.extend({
         var d1 = [];
         for(var i=0, len=data.proportions.length; i<len; i++){
             //d1.push({data: [[data.endpoints[i], data.proportions[i]]], highlightColor:'#00FF00'  });
-            d1.push({data: [[data.midpoints[i], data.proportions[i]]], highlightColor:'#00FF00'  });
+            d1.push({data: [[data.midpoints[i], data.proportions[i]]], 
+                color: '#000000'  }); // specify monochromatic bar color
         }
         var width = data.endpoints[1] - data.endpoints[0];
         
@@ -94,7 +95,7 @@ CUR.HistogramView = Backbone.View.extend({
                 bars: { show: true, barWidth: width, fill:true, lineWidth:0, fillColor: {colors:[ {opacity: 0.8}, {opacity: 0.8} ]} },
                 //bars: { show: true, barWidth: width, lineWidth:1, fill:0.8},
                 xaxis: { autoscaleMargin: 0.1 },
-                yaxis: { min: 0 },
+                yaxis: { min: 0 /* , max: 1 */ },
                 grid: { hoverable: true, clickable: false, borderColor: '#CCCCCC', borderWidth:1 }//,
                 //colors: ['#0099EE', '#EE9900']
                 //highlightColor: '#FF0000'
