@@ -4,6 +4,16 @@
 Interactive maps for biogeophysical and economic indicators
 in the Niger River Basin.
 
+#### Javascript Library Dependencies ####
+* jQuery, jQuery flot, jQuery loadmask
+* Backbone localstorage
+* Bootstrap
+* CartoDB-leaflet.js
+* excanvas
+* JSON2
+* Leaflet
+* Underscore
+
 ## Developers ##
 * David Burgoon	[CUNY Mapping Service](https://gcdi.commons.gc.cuny.edu/2012/01/17/cuny-mapping-service/), Center for Urban Research, CUNY Graduate Center
 * Steve Romalewski [CUNY Mapping Service](https://gcdi.commons.gc.cuny.edu/2012/01/17/cuny-mapping-service/), Center for Urban Research, CUNY Graduate Center
