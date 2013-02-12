@@ -11,7 +11,6 @@ in the Niger River Basin.
 * CartoDB-leaflet.js
 * excanvas
 * JSON2
-* Leaflet
 * Underscore
 
 ## Developers ##
