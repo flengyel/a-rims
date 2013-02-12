@@ -78,7 +78,7 @@
 ***************************************************
 
 #niger_river_network {
-   line-color:rgb(186,18,253);
+   line-color:rgb(0,0,0);
      line-opacity: 0.9;
      [order_=5]     {
        line-width:0.5;
