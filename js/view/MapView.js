@@ -33,7 +33,7 @@ CUR.MapView = Backbone.View.extend({
         this.initializeMapLayers();
         this.initializeMapTooltip();
 
-        this.initDefcon(); // change the default Leaflet marker
+        this.initDefMark(); // change the default Leaflet marker
         
         //this.statusEl = $('#mapStatus');
 
@@ -103,11 +103,10 @@ CUR.MapView = Backbone.View.extend({
         return this;
     },
     
-    initDefcon: function(){
+    initDefMark: function(){
       var myIcon = new L.Icon({
-            iconUrl:'img/BlackPieCircle.png',
-            iconSize:[40, 40],
-            //,iconAnchor: [20, 20]
+            iconUrl:'img/reddot.png',
+            iconSize:[20, 20]
           });
       this.myMarkerIcon = myIcon;
     },
