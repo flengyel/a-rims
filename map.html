@@ -52,10 +52,37 @@
                             <p class="infoPrompt" style="font-size:1.2em;color:#AAAAAA;padding-left:10px;"> 
                               Hover over the river for Lat/Lon coordinates of cell.
                             </p>    
+                            <p style="padding-left:10px;">
+                            
+                                <label for="selAnalysisType">Select Analysis Type:</label>
+                                <select id="selAnalysisType">
+                                    <option value="Runoff">Runoff</option>
+                                    <option value="Runoff25">Runoff 25%</option>
+                                    <option value="Runoff50">Runoff 50%</option>
+                                </select>
+                                <br />
+                                <label for="selTimePeriod">Select Time Period:</label>
+                                <select id="selTimePeriod">
+                                    <option value="annual">Annual</option>
+                                    <option value="january">January</option>
+                                    <option value="february">February</option>
+                                    <option value="march">March</option>
+                                    <option value="april">April</option>
+                                    <option value="may">May</option>
+                                    <option value="june">June</option>
+                                    <option value="july">July</option>
+                                    <option value="august">August</option>
+                                    <option value="september">September</option>
+                                    <option value="october">October</option>
+                                    <option value="november">November</option>
+                                    <option value="december">December</option>
+                                </select>
+                            </p>
                                 <div id="histogram1" class="histogram">
                                   <div class="title"></div>
                                   <div class="chart"></div>
                                 </div> 
+                                <!--
                                 <div id="histogram2" class="histogram">
                                   <div class="title"></div>
                                   <div class="chart"></div>
@@ -68,7 +95,8 @@
                                   <div class="title"></div>
                                   <div class="chart"></div>
                                 </div> 
-                                <br></br>
+                                -->
+                                <br />
                         </div>
                         <div id="logoPanel">
                             <a href="http://asrc.cuny.edu/" target="_blank" ><img src="img/ASRC2.jpg" alt="CUNY Advanced Science Research Center" title="CUNY Advanced Science Research Center" /></a>
@@ -172,6 +200,9 @@
     <script type="text/template" id="infopromptnull-template">
         Hover over the river for Lat/Lon coordinates of cell.
     </script>
+    <script type="text/template" id="histogramtitle-template">
+        <span style="text-transform:capitalize;">Frequency histogram of <%- timePeriod %> <%- label %> upstream of cell <%- id %> (1min resolution).</span>
+    </script>
     <script type="text/template" id="histogram1title-template">
         Frequency histogram of annual runoff [mm/year] at year 2000 irrigation levels
         upstream of cell <%- id %> (1min resolution).
@@ -234,7 +265,9 @@
     <script src="js/model/MapLayerHover.js" type="text/javascript"></script>
     <script src="js/model/RiverSegment.js" type="text/javascript"></script>
     <script src="js/model/RiverSegmentList.js" type="text/javascript"></script>
-
+    <script src="js/model/Dataset.js" type="text/javascript"></script>
+    <script src="js/model/DatasetList.js" type="text/javascript"></script>
+    
     <!--SERVICE-->
     <script src="js/model/EcriService.js" type="text/javascript"></script>
     

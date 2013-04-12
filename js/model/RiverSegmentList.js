@@ -20,15 +20,15 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
 
     hist1Field: 'Runoff_Annual_2000',
 
-    hist2Field: 'Runoff25_Annual_2000',
+//    hist2Field: 'Runoff25_Annual_2000',
 
-    hist3Field: 'Runoff50_Annual_2000',
+//    hist3Field: 'Runoff50_Annual_2000',
 
-    hist4Field: 'Runoff-07',
+//    hist4Field: 'Runoff-07',
 
-    hist5Field: 'Runoff25-07',
+//    hist5Field: 'Runoff25-07',
 
-    hist6Field: 'Runoff50-07',
+//    hist6Field: 'Runoff50-07',
 
     
     
@@ -36,6 +36,7 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
     
     initialize: function(options){
         this.ecriService = CUR.EcriService();
+        
         
         this.on('add', function(seg, col, params){
             if(this.length > this.maxLength){
@@ -46,12 +47,6 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
     },
     
     selectSegment: function(segment){
-    
-//        var currentlySelected = this.getSelectedSegment();
-//        if(currentlySelected){
-//            currentlySelected.set({'selected' : false});
-//        }
-//        segment.set({'selected' : true})
 
         if( this.selectedSegment === segment){
             return;
@@ -63,10 +58,12 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
 
         // this.getHistogramData(segment);
 
-        this.getHistogramData(segment, this.hist1Field, 'histogram');
-        this.getHistogramData(segment, this.hist2Field, 'histogram2');
-        this.getHistogramData(segment, this.hist3Field, 'histogram3');
-        this.getHistogramData(segment, this.hist4Field, 'histogram4');
+        //this.getHistogramData(segment, this.hist1Field, 'histogram');
+        
+        
+//        this.getHistogramData(segment, this.hist2Field, 'histogram2');
+//        this.getHistogramData(segment, this.hist3Field, 'histogram3');
+//        this.getHistogramData(segment, this.hist4Field, 'histogram4');
  
         
 
@@ -109,6 +106,25 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
         );
     },
     
+//    // getHistogramData
+//    // segment  -- id of river network segment
+//    // field -- field name sampled at river network
+//    // histogram ID -- used to pass messages
+//    getHistogramData: function(segment, field, histID){
+//        this.trigger('querySent:' + histID, segment);
+//        var that = this;
+//        this.ecriService.getHistogramData(segment.id, 
+//            this.upstreamHistogramStrahlerOrder,
+//            field,
+//            function(resp){
+//                myMap = {}; // empty map
+//                myMap[histID] = resp; // {histID, resp}
+//                segment.set(myMap);
+//                that.trigger('queryReceived:' + histID, segment, resp);
+//            }
+//        );
+//    },
+
     // getHistogramData
     // segment  -- id of river network segment
     // field -- field name sampled at river network
@@ -120,9 +136,10 @@ CUR.RiverSegmentList = Backbone.Collection.extend({
             this.upstreamHistogramStrahlerOrder,
             field,
             function(resp){
-                myMap = {}; // empty map
-                myMap[histID] = resp; // {histID, resp}
-                segment.set(myMap);
+//                myMap = {}; // empty map
+//                myMap[histID] = resp; // {histID, resp}
+//                segment.set(myMap);
+                segment.set({histogram: resp});
                 that.trigger('queryReceived:' + histID, segment, resp);
             }
         );

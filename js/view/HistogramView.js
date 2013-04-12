@@ -30,8 +30,8 @@ CUR.HistogramView = Backbone.View.extend({
                 position: 'absolute',
                 //position: 'relative',
                 display: 'none',
-                top: y - 55,
-                left: x - 46,
+                top: y - 95,
+                left: x - 48,
                 width:'100px'
             }).appendTo('body').fadeIn(200);
         };
@@ -44,12 +44,14 @@ CUR.HistogramView = Backbone.View.extend({
         var _previousPoint = null;         
         this.chartEl.bind("plothover", function (event, pos, item) {
             if (item) {
+               
                 if (_previousPoint != item.seriesIndex) {
                     
                     _previousPoint = item.seriesIndex;
                     
                     hideTooltip();
-                    showTooltip(item.pageX, 
+                    showTooltip(
+                        item.pageX, 
                         item.pageY,
                         buildTooltipContent(item)
                     ); 
@@ -67,16 +69,22 @@ CUR.HistogramView = Backbone.View.extend({
         //this.render();
     },
 
-    render:function (data) {
+    render:function (histData, dataset, timePeriod) {
         
-        this.updateTitle(data);
-        this.updateChart(data);
+        this.updateTitle(histData, dataset, timePeriod);
+        this.updateChart(histData);
     
         return this;
     },
     
-    updateTitle: function(data){
-        this.titleEl.html( this.titleTemplate( data ) );
+    updateTitle: function(histData, dataset, timePeriod){
+        this.titleEl.html( 
+            this.titleTemplate({
+                id: histData.id,
+                label: dataset.get('label'),
+                timePeriod: timePeriod
+            }) 
+        );
     },
     
     updateChart: function(data){
@@ -84,8 +92,7 @@ CUR.HistogramView = Backbone.View.extend({
         var d1 = [];
         for(var i=0, len=data.proportions.length; i<len; i++){
             //d1.push({data: [[data.endpoints[i], data.proportions[i]]], highlightColor:'#00FF00'  });
-            d1.push({data: [[data.midpoints[i], data.proportions[i]]], 
-                color: '#000000'  }); // specify monochromatic bar color
+            d1.push({data: [[data.midpoints[i], data.proportions[i]]], color: '#000000'  }); // specify monochromatic bar color
         }
         var width = data.endpoints[1] - data.endpoints[0];
         
@@ -102,6 +109,7 @@ CUR.HistogramView = Backbone.View.extend({
             }
         );  
     },
+    
     refresh: function(){
         this.plot.setupGrid();
         this.plot.draw();

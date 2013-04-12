@@ -100,16 +100,43 @@ CUR.MapPage = (function() {
                 // collection, when items are added or changed. Kick things off by
                 // loading any preexisting todos that might be saved in *localStorage*.
                 initialize: function() {
+                    var onActiveDatasetChanged = function(dataset, timePeriod){
+                        datasets.getHistogramData(
+                            riverSegments.selectedSegment, 
+                            datasets.activeDataset, 
+                            datasets.timePeriod
+                        );
+                    };
+                    var onSelectedSegmentChanged = function(segment){
+                        datasets.getHistogramData(
+                            riverSegments.selectedSegment, 
+                            datasets.activeDataset, 
+                            datasets.timePeriod
+                        );
+                    };
+                
+                
                     var layers = new CUR.LayerList(layersConfig);
                     var riverSegments = new CUR.RiverSegmentList();
+                    riverSegments.on('change:selected', onSelectedSegmentChanged);
+                    
+                    var datasets = new CUR.DatasetList();
+                    datasets.on('change:active', onActiveDatasetChanged);
+                    datasets.on('change:timePeriod', onActiveDatasetChanged);
                 
                     var aboutWinView = new CUR.AboutWindowView();
                     var navBarView = new CUR.NavBarView({aboutWin: aboutWinView});
                     var mapView = new CUR.MapView({layers:layers, riverSegments:riverSegments});
-                    var infoPanelView = new CUR.InfoPanelView({layers: layers, riverSegments:riverSegments});
+                    var infoPanelView = new CUR.InfoPanelView({
+                        layers: layers, 
+                        riverSegments:riverSegments,
+                        datasets: datasets
+                    });
                     
                     infoPanelView.on('toggle:show', mapView.resize, mapView);
                     infoPanelView.on('toggle:hide', mapView.resize, mapView);
+                    
+                    
                     
                 },
 
@@ -118,6 +145,10 @@ CUR.MapPage = (function() {
                 render: function() {
                     return this;
                 }
+                
+
+                
+                
             });
 
             // Finally, we kick things off by creating the **App**.

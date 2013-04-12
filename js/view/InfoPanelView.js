@@ -7,7 +7,10 @@ CUR.InfoPanelView = Backbone.View.extend({
     
     initialize:function (options) {
 
-        var locationReportView = new CUR.LocationReportView({collection: options.riverSegments});
+        var locationReportView = new CUR.LocationReportView({
+            collection: options.riverSegments,
+            datasets: options.datasets
+        });
         var legendView = new CUR.LegendView({collection: options.layers});
         
         

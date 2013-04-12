@@ -9,29 +9,43 @@ CUR.LocationReportView = Backbone.View.extend({
     infoPromptTemplate: _.template($('#infoprompt-template').html()),
     infoPromptNullTemplate: _.template($('#infopromptnull-template').html()),
     
+    selAnalysisType: null,
+    selTimePeriod: null,
+    
     histogram: null,
-    histogram2: null,
-    histogram3: null,
-    histogram4: null,
+//    histogram2: null,
+//    histogram3: null,
+//    histogram4: null,
     
+    events: {
+         'change #selAnalysisType': 'onAnalysisTypeChanged',
+         'change #selTimePeriod': 'onTimePeriodChanged'
+    },
     
-    initialize:function () {
+    initialize:function (options) {
         //this.histogram1 = $('#histogram1');
+        
+        this.selAnalysisType = this.$('#selAnalysisType');
+        this.selTimePeriod = this.$('#selTimePeriod');
     
         this.collection.on('change:highlighted', this.segmentHighlighted, this);
 
-        this.collection.on('querySent:histogram', this.segmentQuerySent, this);
-        this.collection.on('queryReceived:histogram', this.segmentQueryReceived, this);
-        // additional conditions
-        this.collection.on('querySent:histogram2', this.segmentQuerySent, this);
-        this.collection.on('queryReceived:histogram2', this.segmentQueryReceived, this);
-
-        this.collection.on('querySent:histogram3', this.segmentQuerySent, this);
-        this.collection.on('queryReceived:histogram3', this.segmentQueryReceived, this);
+        //this.collection.on('querySent:histogram', this.segmentQuerySent, this);
+        //this.collection.on('queryReceived:histogram', this.segmentQueryReceived, this);
         
-        // july runoff
-        this.collection.on('querySent:histogram4', this.segmentQuerySent, this);
-        this.collection.on('queryReceived:histogram4', this.segmentQueryReceived, this);
+        this.datasets = options.datasets;
+        this.datasets.on('querySent:histogram', this.segmentQuerySent, this);
+        this.datasets.on('queryReceived:histogram', this.segmentQueryReceived, this);
+        // additional conditions
+//        this.collection.on('querySent:histogram2', this.segmentQuerySent, this);
+//        this.collection.on('queryReceived:histogram2', this.segmentQueryReceived, this);
+
+//        this.collection.on('querySent:histogram3', this.segmentQuerySent, this);
+//        this.collection.on('queryReceived:histogram3', this.segmentQueryReceived, this);
+//        
+//        // july runoff
+//        this.collection.on('querySent:histogram4', this.segmentQuerySent, this);
+//        this.collection.on('queryReceived:histogram4', this.segmentQueryReceived, this);
         
     
         //this.$el.mask('loading...');
@@ -46,15 +60,15 @@ CUR.LocationReportView = Backbone.View.extend({
         if(this.histogram){
             this.histogram.refresh();
         }
-        if(this.histogram2){
-            this.histogram2.refresh();
-        }
-        if(this.histogram3){
-            this.histogram3.refresh();
-        }
-        if(this.histogram4){
-            this.histogram4.refresh();
-        }
+//        if(this.histogram2){
+//            this.histogram2.refresh();
+//        }
+//        if(this.histogram3){
+//            this.histogram3.refresh();
+//        }
+//        if(this.histogram4){
+//            this.histogram4.refresh();
+//        }
         
         
     },
@@ -68,56 +82,64 @@ CUR.LocationReportView = Backbone.View.extend({
     segmentQuerySent: function(segment){
         this.$el.mask('loading...');
     },
-    segmentQueryReceived: function(segment){
+    segmentQueryReceived: function(histogram, dataset, timePeriod){
         this.$el.unmask();
-        this.updateHistogram(segment);
+        this.updateHistogram(histogram, dataset, timePeriod);
     },
-    updateHistogram: function(segment){
+    updateHistogram: function(histogram, dataset, timePeriod){
     
         if(!this.histogram){
             this.histogram = new CUR.HistogramView({
                 el:'#histogram1', 
                 titleTemplate: _.template( 
-                    $('#histogram1title-template').html() 
+                    $('#histogramtitle-template').html() 
                 ) 
             });
         }
-        this.histogram.render(segment.get('histogram'));
+        this.histogram.render(histogram, dataset, timePeriod);
         
-        if(!this.histogram2){
-            this.histogram2 = new CUR.HistogramView({
-                el:'#histogram2', 
-                titleTemplate: _.template( 
-                    $('#histogram2title-template').html() 
-                ) 
-            });
-        }
-        this.histogram2.render(segment.get('histogram2'));
+//        if(!this.histogram2){
+//            this.histogram2 = new CUR.HistogramView({
+//                el:'#histogram2', 
+//                titleTemplate: _.template( 
+//                    $('#histogram2title-template').html() 
+//                ) 
+//            });
+//        }
+//        this.histogram2.render(segment.get('histogram2'));
+//        
+//        if(!this.histogram3){
+//            this.histogram3 = new CUR.HistogramView({
+//                el:'#histogram3', 
+//                titleTemplate: _.template( 
+//                    $('#histogram3title-template').html() 
+//                ) 
+//            });
+//        }
+//        this.histogram3.render(segment.get('histogram3'));
+//        
+//        // not as parametrized as it should be!!
+//        if(!this.histogram4){
+//            this.histogram4 = new CUR.HistogramView({
+//                el:'#histogram4', 
+//                titleTemplate: _.template( 
+//                    $('#histogram4title-template').html() 
+//                ) 
+//            });
+//        }
+//        this.histogram4.render(segment.get('histogram4'));
         
-        if(!this.histogram3){
-            this.histogram3 = new CUR.HistogramView({
-                el:'#histogram3', 
-                titleTemplate: _.template( 
-                    $('#histogram3title-template').html() 
-                ) 
-            });
-        }
-        this.histogram3.render(segment.get('histogram3'));
-        
-        // not as parametrized as it should be!!
-        if(!this.histogram4){
-            this.histogram4 = new CUR.HistogramView({
-                el:'#histogram4', 
-                titleTemplate: _.template( 
-                    $('#histogram4title-template').html() 
-                ) 
-            });
-        }
-        this.histogram4.render(segment.get('histogram4'));
-        
-        //this.updateChart(segment.get('histogram'));
-        
+    },
+    
+    onAnalysisTypeChanged: function(e){
+        this.datasets.setActiveDataset( this.selAnalysisType.val() );  
+    },
+    
+    onTimePeriodChanged: function(e){
+        this.datasets.setTimePeriod( this.selTimePeriod.val() );
     }
+    
+    
 //    ,
 //    updateChart: function(data, status){
 //        var _chart = $('.chart', '#histogram1');
