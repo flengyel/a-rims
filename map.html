@@ -56,31 +56,44 @@
                             
                                 <label for="selAnalysisType">Select Analysis Type:</label>
                                 <select id="selAnalysisType">
+                                    <option selected="true" value="Discharge">Discharge</option>
+                                    <option value="Discharge25">Discharge 25%</option>
+                                    <option value="Discharge50">Discharge 50%</option>
                                     <option value="Runoff">Runoff</option>
                                     <option value="Runoff25">Runoff 25%</option>
                                     <option value="Runoff50">Runoff 50%</option>
+                                    <option value="AirTemperature">Air Temperature</option>
+                                    <option value="Precipitation">Precipitation</option>
+                                    <option value="DischargeByPopulation">Discharge by Population</option>
+                                    <option value="DischargeByPopulation25">Discharge by Population 25%</option>
+                                    <option value="DischargeByPopulation50">Discharge by Population 50%</option>
+                                    <option value="RunoffByPopulation">Runoff by Population</option>
+                                    <option value="RunoffByPopulation25">Runoff by Population 25%</option>
+                                    <option value="RunoffByPopulation50">Runoff by Population 50%</option>
                                 </select>
                                 <br />
                                 <label for="selTimePeriod">Select Time Period:</label>
                                 <select id="selTimePeriod">
                                     <option value="annual">Annual</option>
-                                    <option value="january">January</option>
-                                    <option value="february">February</option>
-                                    <option value="march">March</option>
-                                    <option value="april">April</option>
-                                    <option value="may">May</option>
-                                    <option value="june">June</option>
-                                    <option value="july">July</option>
-                                    <option value="august">August</option>
-                                    <option value="september">September</option>
-                                    <option value="october">October</option>
-                                    <option value="november">November</option>
-                                    <option value="december">December</option>
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
                                 </select>
                             </p>
                                 <div id="histogram1" class="histogram">
                                   <div class="title"></div>
                                   <div class="chart"></div>
+                                  <div class="subtitle"></div>
+                                  <img class="legend" />
                                 </div> 
                                 <!--
                                 <div id="histogram2" class="histogram">
@@ -202,6 +215,16 @@
     </script>
     <script type="text/template" id="histogramtitle-template">
         <span style="text-transform:capitalize;">Frequency histogram of <%- timePeriod %> <%- label %> upstream of cell <%- id %> (1min resolution).</span>
+    </script>
+    <script type="text/template" id="histogramsubtitle-template">
+            <dl class="dl-horizontal">
+            <dt>AVERAGE:</dt>
+            <dd><%- avg %></dd>
+            <dt>MIN:</dt>
+            <dd><%- min %></dd>
+            <dt>MAX:</dt>
+            <dd><%- max %></dd>
+            </dl>
     </script>
     <script type="text/template" id="histogram1title-template">
         Frequency histogram of annual runoff [mm/year] at year 2000 irrigation levels

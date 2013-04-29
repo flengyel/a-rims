@@ -7,15 +7,21 @@ CUR.HistogramView = Backbone.View.extend({
     titleEl: null,
     chartEl: null,
     titleTemplate:null,
+    subTitleTemplate:null,
     
     plot: null,
+    
+    legendDirectory: 'http://rose.ccny.cuny.edu/~florian/WB/LEGEND/',
     
     initialize:function (options) {
     
         this.titleEl = this.$('.title');
         this.chartEl = this.$('.chart');
+        this.subTitleEl = this.$('.subtitle');
+        this.legendEl = this.$('.legend');
         
         this.titleTemplate = options.titleTemplate;
+        this.subTitleTemplate = options.subTitleTemplate;
         
         
         var buildTooltipContent = function(item){
@@ -73,8 +79,25 @@ CUR.HistogramView = Backbone.View.extend({
         
         this.updateTitle(histData, dataset, timePeriod);
         this.updateChart(histData);
+        this.updateLegend(dataset, timePeriod);
     
         return this;
+    },
+    
+    timePeriods: {
+        'annual': 'annual',
+        '01': 'january',
+        '02': 'february',
+        '03': 'march',
+        '04': 'april',
+        '05': 'may',
+        '06': 'june',
+        '07': 'july',
+        '08': 'august',
+        '09': 'september',
+        '10': 'october',
+        '11': 'november',
+        '12': 'december'
     },
     
     updateTitle: function(histData, dataset, timePeriod){
@@ -82,9 +105,34 @@ CUR.HistogramView = Backbone.View.extend({
             this.titleTemplate({
                 id: histData.id,
                 label: dataset.get('label'),
-                timePeriod: timePeriod
+                timePeriod: this.timePeriods[timePeriod]
             }) 
         );
+        this.subTitleEl.html( 
+            this.subTitleTemplate({
+                avg: histData.avg,
+                min: histData.min,
+                max: histData.max
+            }) 
+        );
+         
+    },
+    
+    updateLegend: function(dataset, timePeriod){
+        
+        if( dataset.get('legend') ){
+            if(timePeriod === 'annual'){
+                this.legendEl.attr('src', this.legendDirectory + dataset.get('legend')['annual'] );
+            } else {
+                if(dataset.get('legend')['monthly']){
+                    this.legendEl.attr('src', this.legendDirectory + _.template( dataset.get('legend')['monthly'] )({month: timePeriod})  );
+                }
+            }
+            this.legendEl.css('display', 'block');
+        } else {
+            this.legendEl.css('display', 'none');
+        }
+
     },
     
     updateChart: function(data){

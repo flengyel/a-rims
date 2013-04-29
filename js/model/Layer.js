@@ -42,7 +42,8 @@ CUR.Layer = Backbone.Model.extend({
                         interactivity: options.tables[i].interactivity,
                         //query: "SELECT * FROM {{table_name}}",
                         opacity: this.get('opacity'),
-                        zIndex: this.get('zIndex')
+                        zIndex: this.get('zIndex'),
+                        visible: this.get('visible')
                     })
                 )
             } else {
@@ -53,7 +54,8 @@ CUR.Layer = Backbone.Model.extend({
                         //interactivity: ( options.mapLayersConfig[i].interactivity  ? options.mapLayersConfig[i].interactivity : null),
                         query: "SELECT * FROM {{table_name}}",
                         opacity: this.get('opacity'),
-                        zIndex: this.get('zIndex')
+                        zIndex: this.get('zIndex'),
+                        visible: this.get('visible')
                     })
                 )
             }

@@ -75,7 +75,7 @@ CUR.MapPage = (function() {
                     name: 'cropland',
                     tables: [{name:'crop_africa'}],
                     label:'Cropland',
-                    visible: true,
+                    visible: false,
                     isInLegend: true,
                     legendImage: 'img/legend/cropland.png',
                     metadataUrl: 'http://sage.wisc.edu/pubs/articles/M-Z/Monfreda/MonfredaGBC2008.pdf',
@@ -100,12 +100,20 @@ CUR.MapPage = (function() {
                 // collection, when items are added or changed. Kick things off by
                 // loading any preexisting todos that might be saved in *localStorage*.
                 initialize: function() {
+
+                    //HACK TO MAKE SURE ANALYSIS TYPE SELECT CLEARS ITSELF. CHANGE/MOVE THIS!!!!!!!!!!
+                    $('#selAnalysisType').val( 'Discharge' ).attr('selected',true);
+                    $('#selTimePeriod').val( 'annual' ).attr('selected',true);
+                
                     var onActiveDatasetChanged = function(dataset, timePeriod){
                         datasets.getHistogramData(
                             riverSegments.selectedSegment, 
                             datasets.activeDataset, 
                             datasets.timePeriod
                         );
+                        
+                        //TODO: REMOVE THIS HACK
+                        CUR.MapPage.setIndicatorOnMap(datasets.activeDataset, datasets.timePeriod);
                     };
                     var onSelectedSegmentChanged = function(segment){
                         datasets.getHistogramData(
@@ -113,7 +121,13 @@ CUR.MapPage = (function() {
                             datasets.activeDataset, 
                             datasets.timePeriod
                         );
+                        
+                        //TODO: REMOVE THIS HACK
+                        //CUR.MapPage.setIndicatorOnMap(datasets.activeDataset.get('cartodb'), datasets.timePeriod);
                     };
+                    
+                    
+                  
                 
                 
                     var layers = new CUR.LayerList(layersConfig);
@@ -137,6 +151,12 @@ CUR.MapPage = (function() {
                     infoPanelView.on('toggle:hide', mapView.resize, mapView);
                     
                     
+                    //TODO: REMOVE THIS HACK
+                    CUR.MapPage.map = mapView.map;
+                    
+                    CUR.MapPage.setIndicatorOnMap(datasets.activeDataset, datasets.timePeriod);
+                    
+                  
                     
                 },
 
@@ -155,6 +175,35 @@ CUR.MapPage = (function() {
             var App = new AppView();
             $('a[rel=tooltip]').tooltip({ delay:{show:500, hide:0}}); 
                        
+        },
+        
+        //TODO: REMOVE THESE HACKs
+        map: null,
+        indicatorMapLayers: {},
+        setIndicatorOnMap: function(indicator, timePeriod){
+        
+            for (var key in this.indicatorMapLayers) {
+                this.map.removeLayer( this.indicatorMapLayers[key] );
+            }
+            
+            var cartoTable = indicator.get('cartodb');
+            if(timePeriod !== 'annual' && indicator.get('cartodbMonthly')){
+                cartoTable = _.template( indicator.get('cartodbMonthly') )({ month:timePeriod });
+            
+            }
+            if( !this.indicatorMapLayers[cartoTable] ){
+                this.indicatorMapLayers[cartoTable] = new L.CartoDBLayerWithZIndex({
+                    map: this.map,
+                    user_name: 'asrc',
+                    table_name: cartoTable,
+                    query: "SELECT * FROM {{table_name}}",
+                    opacity: 1,
+                    zIndex: 2
+                });
+            
+            }
+            this.map.addLayer( this.indicatorMapLayers[cartoTable] );
+            
         }
     };
     

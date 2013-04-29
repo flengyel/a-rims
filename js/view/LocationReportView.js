@@ -93,7 +93,10 @@ CUR.LocationReportView = Backbone.View.extend({
                 el:'#histogram1', 
                 titleTemplate: _.template( 
                     $('#histogramtitle-template').html() 
-                ) 
+                ),
+                subTitleTemplate: _.template( 
+                    $('#histogramsubtitle-template').html() 
+                ),
             });
         }
         this.histogram.render(histogram, dataset, timePeriod);

@@ -14,7 +14,13 @@ CUR.MapLayerView = Backbone.View.extend({
             opacity: this.model.get('opacity'),
             zIndex: this.model.get('zIndex') 
         });
-        options.map.addLayer(this.leafletLayer);
+        
+        if(options.model.get('visible')){
+            options.map.addLayer(this.leafletLayer);
+        }
+        
+     
+        
         
 
         this.map = options.map;

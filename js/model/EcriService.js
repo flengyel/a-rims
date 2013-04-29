@@ -6,7 +6,7 @@ CUR = window.CUR || {};
 CUR.EcriService = function(){
 
     var baseUrl = 'http://asrc.cuny.edu/crossroads/rgis/';
-    //baseUrl = 'proxy.ashx?http://asrc.cuny.edu/crossroads/rgis/';
+    //var baseUrl = 'proxy.ashx?http://asrc.cuny.edu/crossroads/rgis/';
     
     var baseUrlNiger = baseUrl + 'Africa/Niger/';
     
@@ -14,19 +14,26 @@ CUR.EcriService = function(){
     //TIMEPERIODS NEED TO BE MANAGED BETTER
     var timePeriods = {
         'annual': '_Annual_2000',
-        'january': '-01',
-        'february': '-02',
-        'march': '-03',
-        'april': '-04',
-        'may': '-05',
-        'june': '-06',
-        'july': '-07',
-        'august': '-08',
-        'september': '-09',
-        'october': '-10',
-        'november': '-11',
-        'december': '-12'
+        '01': '01',
+        '02': '02',
+        '03': '03',
+        '04': '04',
+        '05': '05',
+        '06': '06',
+        '07': '07',
+        '08': '08',
+        '09': '09',
+        '10': '10',
+        '11': '11',
+        '12': '12'
     };
+    
+//    var histogramTemplates = {
+//        'Discharge': { annual:_.template('<%- indicator %>_annual'), monthly:_.template('<%- indicator %>-<%- month %>') },
+//        'Runoff': { annual:_.template('<%- indicator %>_Annual_2000'), monthly:_.template('<%- indicator %>-<%- month %>') },
+//        'AirTemperature': { annual:_.template('<%- indicator %>'), monthly:_.template('<%- indicator %>-<%- month %>') },
+//        'Precipitation': { annual:_.template('<%- indicator %>'), monthly:_.template('<%- indicator %>-<%- month %>') }
+//    };
     
     var callService = function(url, callback){
         $.getJSON(
@@ -41,7 +48,60 @@ CUR.EcriService = function(){
 //        } else {
 //            return dataset + '_' + timePeriods[timePeriod];
 //        }
-        return dataset + timePeriods[timePeriod];
+        
+        
+        
+//        var timePeriodUrl = timePeriods[timePeriod];
+//        if(dataset.substring(0,1) === 'q'){
+//            timePeriodUrl = '_' + timePeriodUrl.split('_')[1].toLowerCase();
+//        }
+//        return dataset + timePeriodUrl;
+
+
+        var output;
+        
+//        var histogramTemplate;
+//        if(dataset.get('name').indexOf('Discharge')>-1){
+//            histogramTemplate = histogramTemplates['Discharge'];
+//        } else if (dataset.get('name').indexOf('Runoff')>-1){
+//            histogramTemplate = histogramTemplates['Runoff']
+//        } else if (dataset.get('name').indexOf('AirTemperature')>-1){
+//            histogramTemplate = histogramTemplates['AirTemperature']
+//        } else if (dataset.get('name').indexOf('Precipitation')>-1){
+//            histogramTemplate = histogramTemplates['Precipitation']
+//        }
+        
+        if(timePeriod !== 'annual' && dataset.get('histogram')['monthly']){
+            //output = histogramTemplate['annual']({ indicator:dataset.get('histogram')['annual'] });
+             
+             output = _.template( dataset.get('histogram')['monthly'] )({month: timePeriod});
+        } else {
+            //output = histogramTemplate['monthly']({ indicator:dataset.get('histogram')['monthly'], month: timePeriods[timePeriod] });
+            output = _.template( dataset.get('histogram')['annual'] )({});
+        }
+        
+
+
+
+//        if(dataset.get('name').indexOf('Discharge')>-1){
+//            if(timePeriod === 'annual'){
+//                output = histogramTemplates['Discharge']['annual']({ indicator:dataset.get('histogram')['annual'] });
+//            } else {
+//                output = histogramTemplates['Discharge']['monthly']({ indicator:dataset.get('histogram')['monthly'], month: timePeriods[timePeriod] });
+//            }
+//        }
+//        if(dataset.get('name').indexOf('Runoff')>-1){
+//            if(timePeriod === 'annual'){
+//                output = histogramTemplates['Runoff']['annual']({ indicator:dataset.get('histogram')['annual'] });
+//            } else {
+//                output = histogramTemplates['Runoff']['monthly']({ indicator:dataset.get('histogram')['monthly'], month: timePeriods[timePeriod] });
+//            }
+//        }
+
+        
+        return output;
+
+
     
     };
     

@@ -258,17 +258,38 @@
 	padding-left:25px;
 	margin:0 auto;
 	line-height:normal;
-	color:#606060;
+	color:#404040;
 	font-size:80%;
 	font-weight:bold;
-
+}
+.histogram .subtitle
+{
+	margin:0 auto;
+	line-height:normal;
+	color:#404040;
+	font-size:80%;
+	padding-left:10px;
+}
+.histogram .subtitle dl
+{
+	margin: 0 0 10px 0;
+}
+.histogram .subtitle dt, .histogram .subtitle dd
+{
+	line-height:normal;
+	color:#707070;
 }
 .histogram .chart
 {
 	width:250px;
 	height:200px;
 	margin:0 auto;
-        padding-bottom:25px;
+    padding-bottom:25px;
+}
+.histogram .legend
+{
+	display:none;
+	margin: 0px auto;
 }
 
 #aboutModal .modal-header

@@ -221,6 +221,20 @@ CUR.MapView = Backbone.View.extend({
         if(this.upstreamSegmentsView){
             this.upstreamSegmentsView.removeUpstreamSegments();
         }
+
+        
+//        var leafletLayer = new L.CartoDBLayerWithZIndex({
+//            map: this.map,
+//            user_name: 'asrc',
+//            table_name: 'niger_runoff_2000_01min',
+//            query: "SELECT * FROM {{table_name}}",
+//            opacity: 1,
+//            zIndex: 100
+//        });
+//        this.map.addLayer(leafletLayer);
+
+        
+        
     },
     
     onUpstreamReceived: function(data){
@@ -234,6 +248,7 @@ CUR.MapView = Backbone.View.extend({
         )
         
         this.upstreamSegmentsView.addUpstreamSegments(data);
+        
         
     }
 });
