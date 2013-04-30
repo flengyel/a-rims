@@ -34,7 +34,8 @@ CUR.DatasetList = Backbone.Collection.extend({
                 //histogram: {annual:'q_dist25_1m', monthly:'Discharge25'},
                 histogram: {annual:'q_dist25_1m_annual', monthly:'Discharge25-<%- month %>'},
                 legend: {annual:'Niger_Discharge25_1000_06min_Legend.jpg', monthly:'Discharge25_<%- month %>_2000_06min_Legend.jpg' }
-            },{
+            },
+            {
                 name: 'Discharge50',
                 label: 'discharge at 50% over year 2000 irrigation levels',
                 cartodb: 'niger_discharge50_2000_06min',
@@ -42,41 +43,53 @@ CUR.DatasetList = Backbone.Collection.extend({
                 //histogram: {annual:'q_dist50_1m', monthly:'Discharge50'},
                 histogram: {annual:'q_dist50_1m_annual', monthly:'Discharge50-<%- month %>'},
                 legend: {annual:'Niger_Discharge50_2000_06min_Legend.jpg', monthly:'Discharge50_<%- month %>_2000_06min_Legend.jpg' }
-            },{
+            },
+            {
+                name: 'Population',
+                label: 'Population year 2000',
+                cartodb: 'niger_population_2000_01min',
+                cartodbMonthly: '',
+                //histogram: {annual:'q_dist50_1m', monthly:'Discharge50'},
+                histogram: {annual:'Pop2000', monthly:''},
+                legend: {annual:'Niger_Population_2000_01min_Legend.jpg', monthly:'' }
+            },
+            {
                 name: 'Runoff',
                 label: 'runoff at year 2000 irrigation levels',
                 cartodb: 'niger_runoff_2000_06min',
                 cartodbMonthly: 'runoff_2000_<%- month %>_6min',
                 //histogram: {annual:'Runoff', monthly:'Runoff'},
                 histogram: {annual:'Runoff_Annual_2000', monthly:'Runoff-<%- month %>'},
-                legend: {annual:null, monthly:'Runoff_<%- month %>_2000_06min_Legend.jpg' }
+                legend: {annual:'Niger_Runoff_2000_06min_Legend.jpg', monthly:'Runoff_<%- month %>_2000_06min_Legend.jpg' }
             },{
                 name: 'Runoff25',
                 label: 'runoff at 25% over year 2000 irrigation levels',
                 cartodb: 'niger_runoff25_2000_06min',
                 cartodbMonthly: 'runoff25_2000_<%- month %>_6min',
                 //histogram: {annual:'Runoff25', monthly:'Runoff25'}
-                histogram: {annual:'Runoff25_Annual_2000', monthly:'Runoff25-<%- month %>'}
+                histogram: {annual:'Runoff25_Annual_2000', monthly:'Runoff25-<%- month %>'},
+                legend: {annual:'Niger_Runoff25_2000_06min_Legend.jpg', monthly:'Runoff25_<%- month %>_2000_06min_Legend.jpg' }
             },{
                 name: 'Runoff50',
                 label: 'runoff at 50% over year 2000 irrigation levels',
                 cartodb: 'niger_runoff50_2000_06min',
                 cartodbMonthly: 'runoff50_2000_<%- month %>_6min',
                 //histogram: {annual:'Runoff50', monthly:'Runoff50'},
-                histogram: {annual:'Runoff50_Annual_2000', monthly:'Runoff50-<%- month %>'}
+                histogram: {annual:'Runoff50_Annual_2000', monthly:'Runoff50-<%- month %>'},
+                legend: {annual:'Niger_Runoff50_2000_06min_Legend.jpg', monthly:'Runoff50_<%- month %>_2000_06min_Legend.jpg' }
             },{
                 name: 'AirTemperature',
                 label: 'air temperature',
-                cartodb: 'Global_AirTemperature_2000_30min',
-                cartodbMonthly: 'AirTemp_2000_<%- month %>_30min',
+                cartodb: 'global_airtemperature_2000_30min',
+                cartodbMonthly: 'airtemp_2000_<%- month %>_30min',
                 //histogram: {annual:'AirTemperature_2000', monthly:'AirTemperature_2000'},
                 histogram: {annual:'AirTemperature_2000', monthly:'AirTemperature_2000-<%- month %>'},
                 legend: {annual:'Global_AirTemperature_2000_30min_Legend.jpg', monthly:'AirTemp_<%- month %>_2000_30min_Legend.jpg' }
             },{
                 name: 'Precipitation',
                 label: 'precipitation',
-                cartodb: 'Global_Precipitation_2000_30min',
-                cartodbMonthly: 'Precip_2000_<%- month %>_30min',
+                cartodb: 'global_precipitation_2000_30min',
+                cartodbMonthly: 'precip_2000_<%- month %>_30min',
                 //histogram: {annual:'Precipitation_2000', monthly:'Precipitation_2000'},
                 histogram: {annual:'Precipitation_2000', monthly:'Precipitation_2000-<%- month %>'},
                 legend: {annual:'Global_Precipitation_2000_30min_Legend.jpg', monthly:'Precip_2000_<%- month %>_30min_Legend.jpg' }
@@ -137,7 +150,7 @@ CUR.DatasetList = Backbone.Collection.extend({
             }
         ]);
         
-        this.activeDataset = this.getDatasetByName('Discharge');
+        this.activeDataset = this.getDatasetByName('Runoff');
 
     },
     

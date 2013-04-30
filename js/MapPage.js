@@ -102,7 +102,7 @@ CUR.MapPage = (function() {
                 initialize: function() {
 
                     //HACK TO MAKE SURE ANALYSIS TYPE SELECT CLEARS ITSELF. CHANGE/MOVE THIS!!!!!!!!!!
-                    $('#selAnalysisType').val( 'Discharge' ).attr('selected',true);
+                    $('#selAnalysisType').val( 'Runoff' ).attr('selected',true);
                     $('#selTimePeriod').val( 'annual' ).attr('selected',true);
                 
                     var onActiveDatasetChanged = function(dataset, timePeriod){
