@@ -102,8 +102,12 @@ CUR.MapPage = (function() {
                 initialize: function() {
 
                     //HACK TO MAKE SURE ANALYSIS TYPE SELECT CLEARS ITSELF. CHANGE/MOVE THIS!!!!!!!!!!
-                    $('#selAnalysisType').val( 'Runoff' ).attr('selected',true);
+                    //$('#selAnalysisType').val( 'Runoff' ).attr('selected',true);
+                    
+                    $('#selIndicator').val( '' ).attr('selected',true);
                     $('#selTimePeriod').val( 'annual' ).attr('selected',true);
+                    
+                    
                 
                     var onActiveDatasetChanged = function(dataset, timePeriod){
                         datasets.getHistogramData(
@@ -186,23 +190,27 @@ CUR.MapPage = (function() {
                 this.map.removeLayer( this.indicatorMapLayers[key] );
             }
             
-            var cartoTable = indicator.get('cartodb');
-            if(timePeriod !== 'annual' && indicator.get('cartodbMonthly')){
-                cartoTable = _.template( indicator.get('cartodbMonthly') )({ month:timePeriod });
-            
+            if(indicator){
+                var cartoTable = indicator.get('cartodb');
+                if(timePeriod !== 'annual' && indicator.get('cartodbMonthly')){
+                    cartoTable = _.template( indicator.get('cartodbMonthly') )({ month:timePeriod });
+                
+                }
+                if( !this.indicatorMapLayers[cartoTable] ){
+                    this.indicatorMapLayers[cartoTable] = new L.CartoDBLayerWithZIndex({
+                        map: this.map,
+                        user_name: 'asrc',
+                        table_name: cartoTable,
+                        query: "SELECT * FROM {{table_name}}",
+                        opacity: 1,
+                        zIndex: 2
+                    });
+                
+                }
+                this.map.addLayer( this.indicatorMapLayers[cartoTable] );
             }
-            if( !this.indicatorMapLayers[cartoTable] ){
-                this.indicatorMapLayers[cartoTable] = new L.CartoDBLayerWithZIndex({
-                    map: this.map,
-                    user_name: 'asrc',
-                    table_name: cartoTable,
-                    query: "SELECT * FROM {{table_name}}",
-                    opacity: 1,
-                    zIndex: 2
-                });
             
-            }
-            this.map.addLayer( this.indicatorMapLayers[cartoTable] );
+           
             
         }
     };

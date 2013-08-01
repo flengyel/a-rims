@@ -70,8 +70,9 @@ CUR.MapView = Backbone.View.extend({
             minZoom:3, 
             maxZoom:15,
             //inertia:false,
-            zoomAnimation:false
-            //fadeAnimation:false,
+            zoomAnimation:true,
+            fadeAnimation:false,
+            doubleClickZoom: false
             //markerAnimation:false
         });
         
@@ -84,14 +85,14 @@ CUR.MapView = Backbone.View.extend({
     },
     
     initializeBaseLayers: function(){
-        var streetUrl = 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png';
-        var street = new L.TileLayer(streetUrl, {maxZoom: 18});
+//        var streetUrl = 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png';
+//        var street = new L.TileLayer(streetUrl, {maxZoom: 18});
 
         var terrainUrl = 'http://{s}.tiles.mapbox.com/v3/cunycur.map-150fhhe6/{z}/{x}/{y}.png';
         var terrain = new L.TileLayer(terrainUrl, {maxZoom: 18});
         this.map.addLayer(terrain);
         
-        L.control.layers({'Street': street, 'Terrain': terrain}, {}).addTo(this.map);
+//        L.control.layers({'Street': street, 'Terrain': terrain}, {}).addTo(this.map);
     
     },
     

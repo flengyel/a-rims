@@ -13,6 +13,9 @@ CUR.DatasetList = Backbone.Collection.extend({
     //TODO: TIMEPERIODS NEED TO BE MANAGED BETTER. 
     timePeriod: 'annual',
     
+    //TODO: SO DO IRRIGATION LEVELS. 
+    irrigationLevel: 'baseline',
+    
     initialize: function(){
         this.ecriService = CUR.EcriService();
 
@@ -25,7 +28,9 @@ CUR.DatasetList = Backbone.Collection.extend({
                 cartodbMonthly: 'discharge_2000_<%- month %>_6min',
                 //histogram: {annual:'q_dist_1m', monthly:'Discharge'},
                 histogram: {annual:'q_dist_1m_annual', monthly:'Discharge-<%- month %>'},
-                legend: {annual:'Niger_Discharge_2000_06min_Legend.jpg', monthly:'Discharge_<%- month %>_2000_06min_Legend.jpg' }
+                legend: {annual:'Niger_Discharge_2000_06min_Legend.jpg', monthly:'Discharge_<%- month %>_2000_06min_Legend.jpg' },
+                canChangeTimePeriod: true,
+                canChangeIrrigationLevel: true
             },{
                 name: 'Discharge25',
                 label: 'discharge at 25% over year 2000 irrigation levels',
@@ -60,7 +65,9 @@ CUR.DatasetList = Backbone.Collection.extend({
                 cartodbMonthly: 'runoff_2000_<%- month %>_6min',
                 //histogram: {annual:'Runoff', monthly:'Runoff'},
                 histogram: {annual:'Runoff_Annual_2000', monthly:'Runoff-<%- month %>'},
-                legend: {annual:'Niger_Runoff_2000_06min_Legend.jpg', monthly:'Runoff_<%- month %>_2000_06min_Legend.jpg' }
+                legend: {annual:'Niger_Runoff_2000_06min_Legend.jpg', monthly:'Runoff_<%- month %>_2000_06min_Legend.jpg' },
+                canChangeTimePeriod: true,
+                canChangeIrrigationLevel: true
             },{
                 name: 'Runoff25',
                 label: 'runoff at 25% over year 2000 irrigation levels',
@@ -84,7 +91,8 @@ CUR.DatasetList = Backbone.Collection.extend({
                 cartodbMonthly: 'airtemp_2000_<%- month %>_30min',
                 //histogram: {annual:'AirTemperature_2000', monthly:'AirTemperature_2000'},
                 histogram: {annual:'AirTemperature_2000', monthly:'AirTemperature_2000-<%- month %>'},
-                legend: {annual:'Global_AirTemperature_2000_30min_Legend.jpg', monthly:'AirTemp_<%- month %>_2000_30min_Legend.jpg' }
+                legend: {annual:'Global_AirTemperature_2000_30min_Legend.jpg', monthly:'AirTemp_<%- month %>_2000_30min_Legend.jpg' },
+                canChangeTimePeriod: true
             },{
                 name: 'Precipitation',
                 label: 'precipitation',
@@ -92,7 +100,8 @@ CUR.DatasetList = Backbone.Collection.extend({
                 cartodbMonthly: 'precip_2000_<%- month %>_30min',
                 //histogram: {annual:'Precipitation_2000', monthly:'Precipitation_2000'},
                 histogram: {annual:'Precipitation_2000', monthly:'Precipitation_2000-<%- month %>'},
-                legend: {annual:'Global_Precipitation_2000_30min_Legend.jpg', monthly:'Precip_2000_<%- month %>_30min_Legend.jpg' }
+                legend: {annual:'Global_Precipitation_2000_30min_Legend.jpg', monthly:'Precip_2000_<%- month %>_30min_Legend.jpg' },
+                canChangeTimePeriod: true
             },{
                 name: 'DischargeByPopulation',
                 label: 'discharge by population',
@@ -100,15 +109,9 @@ CUR.DatasetList = Backbone.Collection.extend({
                 cartodbMonthly: null,
                 //histogram: {annual:'Precipitation_2000', monthly:'Precipitation_2000'},
                 histogram: {annual:'Discharge_by_Pop_Dist_2000', monthly:null},
-                legend: {annual:'Discharge_By_Population_Dist_2000_01min_Legend.jpg', monthly:null }
-            },{
-                name: 'DischargeByPopulation',
-                label: 'discharge by population',
-                cartodb: 'discharge_by_population_dist_2000_01min',
-                cartodbMonthly: null,
-                //histogram: {annual:'Precipitation_2000', monthly:'Precipitation_2000'},
-                histogram: {annual:'Discharge_by_Pop_Dist_2000', monthly:null},
-                legend: {annual:'Discharge_By_Population_Dist_2000_01min_Legend.jpg', monthly:null }
+                legend: {annual:'Discharge_By_Population_Dist_2000_01min_Legend.jpg', monthly:null },
+                canChangeTimePeriod: true,
+                canChangeIrrigationLevel: true
             },{
                 name: 'DischargeByPopulation25',
                 label: 'discharge by population at 25% over year 2000 irrigation levels',
@@ -131,7 +134,9 @@ CUR.DatasetList = Backbone.Collection.extend({
                 cartodb: 'runoff_by_population_dist_2000_01min',
                 cartodbMonthly: null,
                 //histogram: {annual:'Precipitation_2000', monthly:'Precipitation_2000'},
-                histogram: {annual:'Runoff_by_Pop_Dist_2000', monthly:null}
+                histogram: {annual:'Runoff_by_Pop_Dist_2000', monthly:null},
+                canChangeTimePeriod: true,
+                canChangeIrrigationLevel: true
             },{
                 name: 'RunoffByPopulation25',
                 label: 'runoff by population at 25% over year 2000 irrigation levels',
@@ -150,7 +155,8 @@ CUR.DatasetList = Backbone.Collection.extend({
             }
         ]);
         
-        this.activeDataset = this.getDatasetByName('Runoff');
+        //this.activeDataset = this.getDatasetByName('Runoff');
+        this.activeDataset = null;
 
     },
     
@@ -161,7 +167,7 @@ CUR.DatasetList = Backbone.Collection.extend({
     },
     
     setActiveDataset: function(name){
-
+        
         var dataset = this.getDatasetByName(name);
         
         if(this.activeDataset === dataset){
@@ -171,6 +177,7 @@ CUR.DatasetList = Backbone.Collection.extend({
         this.activeDataset = dataset;
         
         this.trigger('change:active', this.activeDataset, this.timePeriod);
+        
     },
     
     setTimePeriod: function(timePeriod){

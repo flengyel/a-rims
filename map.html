@@ -12,19 +12,14 @@
    
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 40px;/* 60px to make the container go all the way to the bottom of the topbar *//* 60px to make the container go all the way to the bottom of the topbar */
-      }
-     
-    </style>
+   
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.css" />
     <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
     
     
@@ -36,14 +31,48 @@
 </head>
 <body>
     
+    <div id="navbar" class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+        <!--
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a class="aboutOpener" href="#aboutTab">About</a></li>
+              <li><a class="aboutOpener" href="#contactTab">Contact</a></li>
+            </ul>
+          </div> -->
+         <ul class="nav">
+              <li><a class="aboutOpener" href="#aboutTab">About</a></li>
+              <li><a class="aboutOpener" href="#contactTab">Contact</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="titlebar">
+        <!--<span style="font-size:2.5em;font-weight:bold;line-height:1em;">A-RIMS</span>-->
+        <span class="title">A-RIMS</span>
+        <span class="subtitle">Africa Rapid Indicator Mapping System</span>
+    </div>
+    
+    
     <div id="mapContainer">
-        <div id="map"></div>
-        
+        <div id="map">
+            <div id="histogramLegend" style="z-index:99;position:absolute;top:5px;right:5px;background:#FFFFFF;display:none;">
+                <img src="img/Leg_Niger_Runoff_2000_6min.jpg" />
+            </div>
+        </div>
         <div id="infoPanel">
             <a class="leftHandle toggleRight" rel="tooltip" title="Show/Hide panel" data-placement="left" ></a>
             <div class="content">
                 <ul class="nav nav-tabs" id="infoPanelTabs">
-                    <li class="active"><a data-toggle="tab" href="#tabLocation">Location Report</a></li>
+                    <li class="active"><a data-toggle="tab" href="#tabLocation">Mapped Indicators</a></li>
                     <li class=""><a data-toggle="tab" href="#tabLegend">Legend</a></li>
                 </ul>
                 <div class="tab-content" id="myTabContent" style="height:75%;">
@@ -54,41 +83,97 @@
                             </p>    
                             <p style="padding-left:10px;">
                             
-                                <label for="selAnalysisType">Select Analysis Type:</label>
+                            
+<!--                                <label for="selAnalysisType">Select Analysis Type:</label>
                                 <select id="selAnalysisType">
-                                    <!--option value="Discharge">Discharge</option-->
-                                    <!--option value="Discharge25">Discharge 25%</option-->
-                                    <!--option value="Discharge50">Discharge 50%</option-->
+                                    <option value="Discharge">Discharge</option>
+                                    <option value="Discharge25">Discharge 25%</option>
+                                    <option value="Discharge50">Discharge 50%</option>
                                     <option selected="true" value="Runoff">Runoff</option>
                                     <option value="Runoff25">Runoff 25%</option>
                                     <option value="Runoff50">Runoff 50%</option>
                                     <option value="AirTemperature">Air Temperature</option>
                                     <option value="Precipitation">Precipitation</option>
                                     <option value="Population">Population</option>
-                                    <!--option value="DischargeByPopulation">Discharge by Population</option-->
-                                    <!--option value="DischargeByPopulation25">Discharge by Population 25%</option-->
-                                    <!--option value="DischargeByPopulation50">Discharge by Population 50%</option-->
+                                    <option value="DischargeByPopulation">Discharge by Population</option>
+                                    <option value="DischargeByPopulation25">Discharge by Population 25%</option>
+                                    <option value="DischargeByPopulation50">Discharge by Population 50%</option>
                                     <option value="RunoffByPopulation">Runoff by Population</option>
                                     <option value="RunoffByPopulation25">Runoff by Population 25%</option>
                                     <option value="RunoffByPopulation50">Runoff by Population 50%</option>
                                 </select>
-                                <br />
-                                <label for="selTimePeriod">Select Time Period:</label>
-                                <select id="selTimePeriod">
-                                    <option value="annual">Annual</option>
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                <br />-->
+                                
+
+                                <label for="selIndicator">Select Indicator:</label>
+                                <select id="selIndicator" class="input-xlarge">
+                                    <option value="" class="muted" selected="true" >select indicator...</option>
+                                    <optgroup label="GEOPHYSICAL INDICATORS">
+                                        <option value="Runoff">Runoff</option>
+                                        <option value="Discharge">Discharge</option>
+                                        <option value="AirTemperature">Air Temperature</option>
+                                        <option value="Precipitation">Precipitation</option>
+                                    </optgroup>
+                                    <optgroup label="SOCIOLOGICAL INDICATORS"><
+                                        <option value="Population">Population</option>
+                                    </optgroup>
+                                    <optgroup label="ECOSYSTEM SERVICE INDICATORS">
+                                        <option value="RunoffByPopulation">Runoff By Population</option>
+                                        <option value="DischargeByPopulation">Discharge By Population</option>
+                                    </optgroup>
                                 </select>
+                                
+                                <span id="divIrrigationLevel" class="optionalSelector">
+                                    <label for="selIrrigationLevel">Select Irrigation Level:</label>
+                                    <select id="selIrrigationLevel" class="input-xlarge">
+                                        <option value="baseline">2000 Irrigation Levels</option>
+                                        <option value="25">25% Over 2000 Irrigation Levels</option>
+                                        <option value="50">50% Over 2000 Irrigation Levels</option>
+                                        <option value="75">75% Over 2000 Irrigation Levels</option>
+                                    </select>
+                                </span>
+                                <span id="divTimePeriod" class="optionalSelector">
+                                    <label for="selTimePeriod">Select Time Period:</label>
+                                    <select id="selTimePeriod" class="input-xlarge">
+                                        <option value="annual">Annual</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </span>
+
+                                
+                                <!--
+                                    <ul class="nav nav-pills" style="width:230px;">
+                                    <li class="active" style="width:100%;">
+                                        <a href="#">Annual</a>
+                                    </li>
+                                    <br />
+                                    <li class="active">
+                                        <a href="#">Jan</a>
+                                    </li>
+                                    <li><a href="#">Feb</a></li>
+                                    <li><a href="#">Mar</a></li>
+                                    <li><a href="#">Apr</a></li>
+                                    <li><a href="#">May</a></li>
+                                    <li><a href="#">June</a></li>
+                                    <li><a href="#">July</a></li>
+                                    <li><a href="#">Aug</a></li>
+                                    <li><a href="#">Sept</a></li>
+                                    <li><a href="#">Oct</a></li>
+                                    <li><a href="#">Nov</a></li>
+                                    <li><a href="#">Dec</a></li>
+                                    </ul>
+                                -->
                             </p>
                                 <div id="histogram1" class="histogram">
                                   <div class="title"></div>
@@ -131,31 +216,7 @@
     </div>
     
 
-    <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <!--<a class="brand" href="#" style="font-size:2.4em;font-family:Arial;font-weight:normal;color:#AAFF66;">A-RIMS</a>-->
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <!--<li class="active"><a href="#">Home</a></li>-->
-              <li><a class="aboutOpener" href="#aboutTab">About</a></li>
-              <li><a class="aboutOpener" href="#contactTab">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
 
-    <div class="titlebar">
-        <!--<span style="font-size:2.5em;font-weight:bold;line-height:1em;">A-RIMS</span>-->
-        <span class="title">A-RIMS</span>
-        <span class="subtitle">Africa Rapid Indicator Mapping System</span>
-    </div>
    
     
     
@@ -254,26 +315,17 @@
 
     <script src="js/libs/underscore.js" type="text/javascript"></script>
     <script src="js/libs/backbone.js" type="text/javascript"></script>
+    <!--
     <script src="js/libs/backbone.localStorage.js" type="text/javascript"></script>
-    
+    -->
     <script src="js/libs/bootstrap.js"></script>
-    <!--<script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>-->
 
 
     <script src="js/libs/jquery.loadmask.js" type="text/javascript"></script>
-
+<!--
     <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js" type="text/javascript" ></script>
+-->
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js" type="text/javascript" ></script>
     <script src="js/libs/wax.leaf.js" type="text/javascript"></script>
     <script src="js/libs/cartodb-leaflet.js" type="text/javascript"></script>
     <script src="js/libs/cartodb-leaflet-withzindex.js" type="text/javascript"></script>

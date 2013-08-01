@@ -19,14 +19,21 @@ CUR.LocationReportView = Backbone.View.extend({
     
     events: {
          'change #selAnalysisType': 'onAnalysisTypeChanged',
-         'change #selTimePeriod': 'onTimePeriodChanged'
+         'change #selIndicator': 'onIndicatorChanged',
+         'change #selIrrigationLevel': 'onIrrigationLevelChanged',
+         'change #selTimePeriod': 'onTimePeriodChanged',
+         'keyup #selTimePeriod': 'onSelTimePeriodKeyPress'
     },
     
     initialize:function (options) {
         //this.histogram1 = $('#histogram1');
         
         this.selAnalysisType = this.$('#selAnalysisType');
+        
+        this.selIndicator = this.$('#selIndicator');
+        this.selIrrigationLevel = this.$('#selIrrigationLevel ');
         this.selTimePeriod = this.$('#selTimePeriod');
+        
     
         this.collection.on('change:highlighted', this.segmentHighlighted, this);
 
@@ -36,6 +43,8 @@ CUR.LocationReportView = Backbone.View.extend({
         this.datasets = options.datasets;
         this.datasets.on('querySent:histogram', this.segmentQuerySent, this);
         this.datasets.on('queryReceived:histogram', this.segmentQueryReceived, this);
+        
+        this.datasets.on('change:active', this.onActiveDatasetChanged, this);
         // additional conditions
 //        this.collection.on('querySent:histogram2', this.segmentQuerySent, this);
 //        this.collection.on('queryReceived:histogram2', this.segmentQueryReceived, this);
@@ -140,8 +149,40 @@ CUR.LocationReportView = Backbone.View.extend({
     
     onTimePeriodChanged: function(e){
         this.datasets.setTimePeriod( this.selTimePeriod.val() );
-    }
+    },
     
+    onSelTimePeriodKeyPress: function(e){
+        if( e.keyCode === 38 || e.keyCode === 40 ){
+            this.datasets.setTimePeriod( this.selTimePeriod.val() );
+        }
+    },
+    
+    onActiveDatasetChanged: function(indicator, timePeriod){
+        if(indicator){
+             $('#histogramLegend').fadeIn();
+        } else {
+            $('#histogramLegend').fadeOut();
+        }
+    
+        if( indicator && indicator.get('canChangeTimePeriod') ){
+            this.$('#divTimePeriod').fadeIn();
+        } else {
+            this.$('#divTimePeriod').hide();
+        }
+        if( indicator && indicator.get('canChangeIrrigationLevel') ){
+            this.$('#divIrrigationLevel').fadeIn();
+        } else {
+            this.$('#divIrrigationLevel').hide();
+        }
+
+    },
+    
+    onIndicatorChanged: function(e){
+        var indicator = (this.selIndicator.val() === '') ? null : this.selIndicator.val();
+        if(indicator !== ''){
+            this.datasets.setActiveDataset( indicator );  
+        } 
+    }
     
 //    ,
 //    updateChart: function(data, status){

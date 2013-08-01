@@ -2,7 +2,8 @@
 {
 	font-family:Arial;
 	overflow:hidden; 
-	height:1px; 
+	padding:0px;
+	/*height:1px;*/ 
 	/* height:100%; */
 }
 #infoPanel a 
@@ -15,6 +16,23 @@
 }
 #infoPanel .nav-tabs > .active > a, #infoPanel .nav-tabs > .active > a:hover {
     color: #9A4800;
+}
+
+select optgroup{
+    font-style:normal;
+    font-weight:normal;
+    color:#88AACC;
+    padding:2px 4px;
+   
+}
+select option
+{
+	color:#333333;
+}
+.optionalSelector
+{
+	
+	display:none;
 }
 /*
 .navbar-inner .container
@@ -68,6 +86,12 @@
     color: #9A4800;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+.navbar .navbar-inner{
+    border-radius:0px;
+}
 /**************************************/
 
 
@@ -308,15 +332,8 @@
 */
 
 @media (max-width: 979px) {
-  .titlebar
-  {
-  	margin-top:-20px;
-  
-  }
-  #mapContainer
-  {
-  	top:100px;
-  }
+
+ 
   /*
   .navbar-inner .container
 	{
@@ -329,12 +346,7 @@
 {
 
 	
-  .titlebar
-  {
-  	margin-top:-20px;
-  	margin-left:-20px;
-  	margin-right:-20px;
-  }
+
  .subtitle
   {
   	line-height:0.9em;
@@ -351,10 +363,7 @@
   	right:282px;
   }
   */
-  #mapContainer
-  {
-  	top:100px;
-  }
+  
   
 }
 
@@ -406,6 +415,8 @@ div.wax-tooltip .hover-instructions
 }
 
 /***********LOAD MASK****************/
+
+
 .loadmask {
     z-index: 100;
     position: absolute;
